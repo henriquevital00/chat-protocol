@@ -9,3 +9,5 @@ class UserRepository():
     def findById(self, id: int):
         return User.select().where(User.id == id)
 
+    def saveUser(self, user):
+        return User.create(**user)

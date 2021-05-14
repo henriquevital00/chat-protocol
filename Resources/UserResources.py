@@ -12,5 +12,7 @@ class UserResources():
     def findById(self, id):
         return self.userService.findById(id)
 
+    def saveUser(self, username, password):
+        return self.userService.saveUser(username, password)
 
 
