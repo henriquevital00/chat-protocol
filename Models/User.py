@@ -1,7 +1,8 @@
-from peewee import Model, CharField, IntegerField, SQL
+from peewee import CharField, IntegerField
+from .BaseModel import BaseModel
 
-class User(Model):
-    id = IntegerField(primary_key=True, constraints=[SQL('AUTO_INCREMENT')])
+class User(BaseModel):
+    id = IntegerField(primary_key=True)
     username = CharField(unique = True, null = False)
     password = CharField(null = False)
 

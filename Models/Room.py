@@ -1,16 +1,17 @@
-from peewee import Model, CharField, IntegerField, ForeignKeyField, BooleanField, SQL
-from Models.Message import Message
-from Models.User import User
+from peewee import CharField, IntegerField, ForeignKeyField, BooleanField
+from .BaseModel import BaseModel
+from .Message import Message
+from .User import User
 
-class Room(Model):
-    id = IntegerField(primary_key=True, constraints=[SQL('AUTO_INCREMENT')])
+class Room(BaseModel):
+    id = IntegerField(primary_key=True)
     name = CharField()
     is_public = BooleanField()
 
-class RoomMessage(Model):
+class RoomMessage(BaseModel):
     room_id = ForeignKeyField(Room)
     message_id = ForeignKeyField(Message)
 
-class RoomUser(Model):
+class RoomUser(BaseModel):
     room_id = ForeignKeyField(Room)
     user_id = ForeignKeyField(User)
