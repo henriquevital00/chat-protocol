@@ -31,8 +31,9 @@ class UserService():
             self.userRepository.saveUser(user)
 
             return f"Inserted user {username} succesfulyy!"
-        except Exception as ex:
-            print("Not corresponding data was inserted")
+
+        except:
+
             return "Not corresponding data was inserted"
 
 
