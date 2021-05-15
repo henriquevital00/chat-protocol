@@ -1,4 +1,5 @@
-from peewee import SqliteDatabase
+from .Singleton import Singleton
+
 
 class DbContext:
 
@@ -8,7 +9,7 @@ class DbContext:
         try:
 
             if self._conn == None:
-                self._conn = SqliteDatabase('Persistence/chat.db')
+                self._conn = Singleton.instance()
                 self._conn.connect()
 
             return self._conn
@@ -18,4 +19,3 @@ class DbContext:
 
     def close_conn(self):
         self._conn.close()
-
