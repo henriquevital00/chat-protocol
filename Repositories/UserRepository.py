@@ -1,4 +1,3 @@
-import peewee
 from Models.User import User
 
 class UserRepository():
