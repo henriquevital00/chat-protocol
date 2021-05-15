@@ -6,7 +6,7 @@ from .User import User
 class Room(BaseModel):
     id = IntegerField(primary_key=True)
     name = CharField()
-    is_public = BooleanField()
+    admin = ForeignKeyField(User.id, null = True)
 
 class RoomMessage(BaseModel):
     room_id = ForeignKeyField(Room)
