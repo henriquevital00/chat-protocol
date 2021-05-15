@@ -1,5 +1,5 @@
 import peewee
-from Services.UserServices import UserService
+from Services.UserService import UserService
 
 # User Controller
 class UserResources():
