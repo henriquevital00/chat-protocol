@@ -1,7 +1,5 @@
 import peewee
 from Models.User import User
-from Models.Room import Room
-from Models.User import User
 from Models.Room import *
 
 class RoomRepository():
