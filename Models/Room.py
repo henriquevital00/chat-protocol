@@ -15,3 +15,4 @@ class RoomMessage(BaseModel):
 class RoomUser(BaseModel):
     room_id = ForeignKeyField(Room)
     user_id = ForeignKeyField(User)
+    isInRoom = BooleanField(default=False, null=False)
