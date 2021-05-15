@@ -15,11 +15,11 @@ class RoomRepository():
             .where(Room.id == id)
 
     def findRoomMessages(self, id):
-        return RoomMessage.select(User.username.alias("from_user"), User.username("to_user"),
-                                  Message.content, Message.file) \
-                .join(User, on=(Message.to_user == User.id and Message.from_user == User.id))\
-                .join(Room, on=(Room.id == RoomMessage.room_id)) \
-                .where(Room.id == id )
+        return (
+            Message.select(User.username, Message.content, Message.file_name, Message.file)
+            .join(User, on=(Message.from_user_id == User.id), attr='user')
+            .where(Message.room_id == id)
+        )
 
     def saveRoom(self, room):
         return Room.create(**room)

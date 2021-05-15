@@ -2,7 +2,7 @@ import peewee
 from Services.RoomService import RoomService
 
 # Room Controller
-class UserResources():
+class RoomResources():
 
     roomService = RoomService()
 

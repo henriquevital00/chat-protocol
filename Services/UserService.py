@@ -12,6 +12,12 @@ class UserService():
 
         return users if len(users)> 0 else "No users registered!"
 
+    def findUserRooms(self, id: int):
+        rooms = list(self.userRepository.findUserRooms(id))
+        for room in rooms:
+            print(room.name)
+        return rooms if len(rooms) > 0 else "No rooms for this user"
+
 
     def findById(self, id):
 
@@ -30,6 +36,7 @@ class UserService():
             self.userRepository.saveUser(user)
 
             return f"Inserted user {username} succesfulyy!"
+
 
         except:
 

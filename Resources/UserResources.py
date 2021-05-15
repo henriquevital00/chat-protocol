@@ -15,4 +15,7 @@ class UserResources():
     def saveUser(self, username, password):
         return self.userService.saveUser(username, password)
 
+    def findUserRooms(self, id: int):
+        return self.userService.findUserRooms(id)
+
 

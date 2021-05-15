@@ -20,9 +20,11 @@ class RoomService():
 
     def findRoomMessages(self, id):
 
-        users = list(self.roomRepository.findRoomMessages(id))
+        messages = list(self.roomRepository.findRoomMessages(id))
+        for message in messages:
+            print(f'From: {message.user.username}\n {message.content}')
 
-        return users if len(users)> 0 else "No messages were sent in this room!"
+        return messages if len(messages)> 0 else "No messages were sent in this room!"
 
 
     def saveRoom(self, room_name, is_public):
