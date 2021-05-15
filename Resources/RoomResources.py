@@ -7,10 +7,13 @@ class UserResources():
     roomService = RoomService()
 
     def findAll(self):
-        return Room.select()
+        return self.roomService.findAll()
 
     def findUsersAtRoom(self, id):
-        return RoomUser.select(User.id, User.username)\
-               .join(User, on=(User.id == RoomUser.user_id))\
-               .join(Room, on=(Room.id == RoomUser.room_id))\
-               .where(Room.id == id)
+        return self.roomService.findUsersAtRoom(id)
+
+    def findRoomMessages(self, id):
+        return self.roomService.findRoomMessages(id)
+
+    def insertUserInRoom(self, room_id, user_id):
+        return self.roomService.insertUserInRoom(room_id, user_id)

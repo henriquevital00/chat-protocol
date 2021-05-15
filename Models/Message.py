@@ -7,4 +7,5 @@ class Message(BaseModel):
     from_user = ForeignKeyField(User)
     to_user = ForeignKeyField(User)
     content = TextField(null = True)
+    file_name = TextField(null = True)
     file = BlobField(null = True)
