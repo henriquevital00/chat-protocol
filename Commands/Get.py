@@ -1,9 +1,9 @@
-class Decline:
+class Get:
     @staticmethod
-    def decline(username):
+    def download(file):
         pass
 
     @staticmethod
     def run(command):
         var = command.split(' ')
-        decline(var[1])
+        Get.download(var[1])

@@ -12,6 +12,6 @@ class Left:
         var = command.split(' ')
         del var[0]
         if var[0] == '-r':
-            leftRoom(var[0])
+            Left.leftRoom(var[0])
         else:
-            leftServer(var[1])
+            Left.leftServer(var[1])

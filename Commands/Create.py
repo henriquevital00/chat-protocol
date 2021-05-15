@@ -1,9 +1,9 @@
-class Accept:
+class Create:
     @staticmethod
-    def accept(username):
+    def create(room):
         pass
 
     @staticmethod
     def run(command):
         var = command.split(' ')
-        accept(var[1])
+        Create.create(var[1])

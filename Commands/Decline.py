@@ -1,9 +1,9 @@
-class Create:
+class Decline:
     @staticmethod
-    def create(room):
+    def decline(username):
         pass
 
     @staticmethod
     def run(command):
         var = command.split(' ')
-        create(var[1])
+        Decline.decline(var[1])

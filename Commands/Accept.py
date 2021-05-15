@@ -1,9 +1,9 @@
-class Get:
+class Accept:
     @staticmethod
-    def download(file):
+    def accept(username):
         pass
 
     @staticmethod
     def run(command):
         var = command.split(' ')
-        download(var[1])
+        Accept.accept(var[1])
