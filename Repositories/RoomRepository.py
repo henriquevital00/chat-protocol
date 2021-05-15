@@ -26,3 +26,4 @@ class RoomRepository():
 
     def insertUserInRoom(self, user_room):
         return RoomUser.create(**user_room)
+
