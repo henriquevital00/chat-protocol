@@ -12,7 +12,5 @@ class Send:
         del var[0]
         if var[0] == "-m":
             Send.send_message(var[1])
-        elif var[0] == "-f":
-            Send.send_file(var[1])
         else:
-            pass
+            Send.send_file(var[1])
