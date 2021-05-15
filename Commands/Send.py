@@ -10,7 +10,13 @@ class Send:
     def run(command):
         var = command.split(' ')
         del var[0]
+        string = ""
+        for i in range(1, len(var)-1):
+            string += var[i] + " "
+        string += var[len(var)-1]
         if var[0] == "-m":
-            Send.send_message(var[1])
+            Send.send_message(string)
         else:
-            Send.send_file(var[1])
+            Send.send_file(string)
+
+
