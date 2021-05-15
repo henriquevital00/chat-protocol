@@ -16,8 +16,8 @@ class List:
         var = command.split(' ')
         del var[0]
         if var[0] == 'files':
-            listFiles()
+            List.listFiles()
         elif var[0] == 'users':
-            listUsers()
+            List.listUsers()
         else:
-            listRooms()
+            List.listRooms()

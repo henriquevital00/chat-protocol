@@ -6,4 +6,4 @@ class Decline:
     @staticmethod
     def run(command):
         var = command.split(' ')
-        decline(var[1])
+        Decline.decline(var[1])

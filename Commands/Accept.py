@@ -6,4 +6,4 @@ class Accept:
     @staticmethod
     def run(command):
         var = command.split(' ')
-        accept(var[1])
+        Accept.accept(var[1])

@@ -6,4 +6,4 @@ class Get:
     @staticmethod
     def run(command):
         var = command.split(' ')
-        download(var[1])
+        Get.download(var[1])

@@ -6,4 +6,4 @@ class Create:
     @staticmethod
     def run(command):
         var = command.split(' ')
-        create(var[1])
+        Create.create(var[1])
