@@ -3,4 +3,4 @@ from Persistence.DbContext import DbContext
 
 class BaseModel(Model):
     class Meta:
-        database = DbContext().get_conn()
+        database = DbContext.get_conn()

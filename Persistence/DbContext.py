@@ -1,21 +1,21 @@
-from .Singleton import Singleton
-
+from peewee import SqliteDatabase
 
 class DbContext:
 
     _conn = None
 
-    def get_conn(self):
+    @staticmethod
+    def get_conn():
         try:
 
-            if self._conn == None:
-                self._conn = Singleton.instance()
-                self._conn.connect()
+            if DbContext._conn == None:
+                DbContext._conn = SqliteDatabase('Persistence/chat.db')
+                DbContext._conn.connect()
 
-            return self._conn
+            return DbContext._conn
 
         except Exception as ex:
             print(ex)
 
     def close_conn(self):
-        self._conn.close()
+        DbContext._conn.close()

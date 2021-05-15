@@ -8,7 +8,7 @@ class UserService():
 
     def findAll(self):
 
-        users = list(self.userRepository.findAll());
+        users = list(self.userRepository.findAll())
 
         return users if len(users)> 0 else "No users registered!"
 
@@ -20,7 +20,6 @@ class UserService():
         return user if user != None else f"No user with id {id} registered!"
 
     def saveUser(self, username, password):
-        user = None
 
         try:
             user = {
