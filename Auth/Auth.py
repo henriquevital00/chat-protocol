@@ -8,7 +8,7 @@ class Auth:
         if Auth._user == None:
             Auth._user = user
 
-        return user
+        return Auth._user
 
     @staticmethod
     def logout():
