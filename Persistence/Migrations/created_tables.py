@@ -1,11 +1,14 @@
 from .Migration import Migration
-from Models import Message, Room, User
+from Models.User import User
+from Models.Message import Message
+from Models.Room import *
 
 class CreatedTableMigration(Migration):
 
     def migrate(self):
         self._conn.create_tables([
-            User.User,
-            Room.Room,
-            Message.Message
+            User,
+            Room,
+            RoomUser,
+            Message,
         ])
