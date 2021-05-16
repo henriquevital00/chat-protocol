@@ -1,4 +1,3 @@
-import peewee
 from Services.UserService import UserService
 
 # User Controller

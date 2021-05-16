@@ -31,8 +31,3 @@ class Server:
         while endl not in chunk:
             chunk = conn.recv(buffer)
             msg += str(chunk)
-
-
-
-
-

@@ -5,6 +5,9 @@ class UserRepository():
     def findAll(self):
         return User.select()
 
+    def findByUsername(self, username):
+        return User.select().where(User.username == username)
+
     def findById(self, id: int):
         return User.select().where(User.id == id)
 

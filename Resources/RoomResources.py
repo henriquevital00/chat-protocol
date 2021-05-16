@@ -1,4 +1,3 @@
-import peewee
 from Services.RoomService import RoomService
 
 # Room Controller
