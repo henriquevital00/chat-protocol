@@ -38,7 +38,7 @@ class RoomService():
     def saveRoom(self, room_name, user_id):
 
         try:
-            room = { "name": room_name, "admin": user_id}
+            room = { "name": room_name, "admin_id": user_id}
 
             self.roomRepository.saveRoom(room)
 

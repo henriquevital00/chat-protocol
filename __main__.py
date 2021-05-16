@@ -9,7 +9,7 @@ def runMigrations():
 def main():
     DbContext().get_conn()
     runMigrations()
-
+    print(RoomResources().findAll())
     Server()
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ from .User import User
 class Room(BaseModel):
     id = IntegerField(primary_key=True)
     name = CharField()
-    admin = ForeignKeyField(User.id, null = True)
+    admin_id = ForeignKeyField(User.id, null = True)
 
 class RoomUser(BaseModel):
     room_id = ForeignKeyField(Room)
