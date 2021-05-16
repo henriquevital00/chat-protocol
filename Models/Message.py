@@ -1,6 +1,7 @@
 from peewee import IntegerField, ForeignKeyField, TextField, BlobField
 from .BaseModel import BaseModel
 from .User import User
+from .Room import Room
 
 class Message(BaseModel):
     id = IntegerField(primary_key = True)
@@ -9,3 +10,4 @@ class Message(BaseModel):
     content = TextField(null = True)
     file_name = TextField(null = True)
     file = BlobField(null = True)
+    room_id = ForeignKeyField(Room, null=True)

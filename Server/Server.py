@@ -20,8 +20,7 @@ class Server:
                 pid = os.fork()
                 if pid == 0:
                     data = self.recv_all(conn)
-
-
+                    print(data)
 
     def recv_all(self, conn):
         buffer: int = 1024
@@ -31,3 +30,4 @@ class Server:
         while endl not in chunk:
             chunk = conn.recv(buffer)
             msg += str(chunk)
+        return msg
