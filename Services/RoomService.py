@@ -21,10 +21,18 @@ class RoomService():
     def findRoomMessages(self, id):
 
         messages = list(self.roomRepository.findRoomMessages(id))
-        for message in messages:
-            print(f'From: {message.user.username}\n {message.content}')
 
         return messages if len(messages)> 0 else "No messages were sent in this room!"
+
+    def findRoomFiles(self, id):
+
+        files = list(self.roomRepository.findRoomMessages(id))
+
+        files = list(filter(lambda message: message.file != None, files))
+
+        files = list(map(lambda message : (message.file_name, message.file), files))
+
+        return files if len(files) > 0 else "No files attached to this room!"
 
 
     def saveRoom(self, room_name, is_public):
