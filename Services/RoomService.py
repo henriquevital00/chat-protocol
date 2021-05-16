@@ -35,10 +35,10 @@ class RoomService():
         return files if len(files) > 0 else "No files attached to this room!"
 
 
-    def saveRoom(self, room_name, is_public):
+    def saveRoom(self, room_name, user_id):
 
         try:
-            room = { "name": room_name, "is_public": is_public}
+            room = { "name": room_name, "admin": user_id}
 
             self.roomRepository.saveRoom(room)
 

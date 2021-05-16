@@ -8,6 +8,9 @@ class RoomResources():
     def findAll(self):
         return self.roomService.findAll()
 
+    def saveRoom(self, room_name, user_id):
+        return self.saveRoom(room_name, user_id)
+
     def findUsersAtRoom(self, id):
         return self.roomService.findUsersAtRoom(id)
 
