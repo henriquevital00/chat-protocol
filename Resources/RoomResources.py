@@ -1,5 +1,6 @@
 from Services.RoomService import RoomService
 
+
 # Room Controller
 class RoomResources():
 
@@ -8,8 +9,8 @@ class RoomResources():
     def findAll(self):
         return self.roomService.findAll()
 
-    def saveRoom(self, room_name, user_id):
-        return self.roomService.saveRoom(room_name, user_id)
+    def saveRoom(self, room_name):
+        return self.roomService.saveRoom(room_name)
 
     def findUsersAtRoom(self, id):
         return self.roomService.findUsersAtRoom(id)

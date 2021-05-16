@@ -1,6 +1,7 @@
 from Repositories.UserRepository import UserRepository
 from Auth.Auth import Auth
 
+
 class AccountService():
 
     userRepository = UserRepository()
@@ -14,9 +15,7 @@ class AccountService():
             user = users[0]
 
             if password == user.password:
-                Auth.logged_user(user)
-
-                return user
+                return Auth.logged_user(user)
 
         return "Incorrect username or password"
 
@@ -24,7 +23,3 @@ class AccountService():
 
         if Auth.logged_user() is not None:
             Auth.logout()
-
-
-
-
