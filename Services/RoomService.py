@@ -42,7 +42,11 @@ class RoomService():
 
             self.roomRepository.saveRoom(room)
 
-            return f"Created room {room} succesfulyy!"
+            new_room_id = list(self.roomRepository.findAll())[-1].id
+
+            self.insertUserInRoom(new_room_id, user_id)
+
+            return f"Created room {room} succesfully!"
 
         except:
 
@@ -56,7 +60,7 @@ class RoomService():
 
             self.roomRepository.insertUserInRoom(room_user)
 
-            return f"User joined succesfulyy!"
+            return f"User joined succesfully!"
 
         except:
 
