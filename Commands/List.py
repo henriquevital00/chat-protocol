@@ -1,15 +1,24 @@
+from Controllers.RoomController import RoomController
+
+rc = RoomController()
+
+
 class List:
     @staticmethod
-    def listFiles():
-        pass
+    def listFiles():        
+        print(rc.findRoomFiles())
+        return rc.findRoomFiles()
+
 
     @staticmethod
     def listUsers():
-        pass
+        print(rc.findUsersAtRoom())
+        return rc.findUsersAtRoom()
 
     @staticmethod
     def listRooms():
-        pass
+        print(rc.findAll())
+        return rc.findAll()
 
     @staticmethod
     def run(command):

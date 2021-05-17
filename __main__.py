@@ -11,7 +11,7 @@ def runMigrations():
 def main():
     DbContext().get_conn()
     runMigrations()
-
+    
     Server()
 
 if __name__ == '__main__':
