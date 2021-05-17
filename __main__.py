@@ -1,7 +1,7 @@
 from Persistence.DbContext import DbContext
 from Persistence.Migrations.created_tables import CreatedTableMigration
-from Resources.RoomResources import RoomResources
-from Resources.AccountResource import AccountResources
+from Controllers.RoomController import RoomController
+from Controllers.AccountController import AccountController
 from Server.Server import Server
 from Auth.Auth import Auth
 
@@ -11,7 +11,6 @@ def runMigrations():
 def main():
     DbContext().get_conn()
     runMigrations()
-
 
     Server()
 

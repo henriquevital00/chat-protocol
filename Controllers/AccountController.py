@@ -1,7 +1,6 @@
 from Services.AccountService import AccountService
 
-# Account Controller
-class AccountResources():
+class AccountController():
 
     accountService = AccountService()
 
