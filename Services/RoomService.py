@@ -22,8 +22,7 @@ class RoomService():
 
         messages = list(self.roomRepository.findRoomMessages(id))
 
-        return messages if len(
-            messages) > 0 else "No messages were sent in this room!"
+        return messages if len(messages) > 0 else "No messages were sent in this room!"
 
     def findRoomFiles(self, id):
 
@@ -31,8 +30,7 @@ class RoomService():
 
         files = list(filter(lambda message: message.file != None, files))
 
-        files = list(
-            map(lambda message: (message.file_name, message.file), files))
+        files = list(map(lambda message: (message.file_name, message.file), files))
 
         return files if len(files) > 0 else "No files attached to this room!"
 
@@ -40,6 +38,7 @@ class RoomService():
 
         try:
             user_id = Auth.logged_user().id
+
             room = {"name": room_name, "admin_id": user_id}
 
             self.roomRepository.saveRoom(room)

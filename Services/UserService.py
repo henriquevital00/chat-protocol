@@ -1,6 +1,4 @@
-import peewee
 from Repositories.UserRepository import UserRepository
-from Models.User import User
 
 class UserService():
 
@@ -13,9 +11,9 @@ class UserService():
         return users if len(users)> 0 else "No users registered!"
 
     def findUserRooms(self, id: int):
+
         rooms = list(self.userRepository.findUserRooms(id))
-        for room in rooms:
-            print(room.name)
+
         return rooms if len(rooms) > 0 else "No rooms for this user"
 
 
@@ -28,15 +26,15 @@ class UserService():
     def saveUser(self, username, password):
 
         try:
-            user = {
-                "username": username,
-                "password": password
-            }
+
+            if len(self.userRepository.findByUsername(username)) == 1:
+                raise Exception("User already registered with this username!")
+
+            user = {"username": username,"password": password}
 
             self.userRepository.saveUser(user)
 
             return f"Inserted user {username} succesfulyy!"
-
 
         except:
 
