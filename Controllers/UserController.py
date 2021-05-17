@@ -7,6 +7,7 @@ class UserController():
     userService = UserService()
 
     def saveUser(self, username, password):
+
         responseBody = self.userService.saveUser(username, password)
 
         if responseBody is not None:
@@ -23,6 +24,7 @@ class UserController():
             return BadRequest("No users were created!")
 
         return Ok(users)
+
 
     @Authorization
     def findById(self, id):
@@ -44,5 +46,3 @@ class UserController():
             return BadRequest(f"No rooms")
 
         return Ok(rooms)
-
-
