@@ -1,14 +1,27 @@
 from Services.AccountService import AccountService
+from Auth.Auth import Auth
+from Server.Response.Status import *
 
 class AccountController():
 
     accountService = AccountService()
 
     def signIn(self, username, password):
-        return self.accountService.signIn(username, password)
+        responseBody = self.accountService.signIn(username, password)
+
+        if responseBody is not None:
+            return BadRequest(responseBody)
+
+        return Ok(Auth.logged_user())
 
     def signOut(self):
-        return self.accountService.signOut()
+
+        responseBody = self.accountService.signOut()
+
+        if responseBody is not None:
+            return BadRequest(responseBody)
+
+        return Ok("Sign out succesfully! Bye")
 
 
 

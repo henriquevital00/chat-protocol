@@ -15,7 +15,9 @@ class AccountService():
             user = users[0]
 
             if password == user.password:
-                return Auth.logged_user(user)
+                Auth.logged_user(user)
+
+                return None
 
         return "Incorrect username or password"
 
@@ -23,3 +25,7 @@ class AccountService():
 
         if Auth.logged_user() is not None:
             Auth.logout()
+
+            return None
+
+        return "No user logged in"
