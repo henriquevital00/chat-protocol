@@ -59,4 +59,4 @@ class RoomController():
         if responseBody is not None:
             return BadRequest(responseBody)
 
-        return Ok(f"Inserted user in selected successfully!")
+        return Ok(f"Inserted user in selected room successfully!")
