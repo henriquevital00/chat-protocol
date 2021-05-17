@@ -9,19 +9,19 @@ class RoomService():
 
         rooms = list(self.roomRepository.findAll())
 
-        return rooms if len(rooms) > 0 else "No rooms were created!"
+        return rooms
 
     def findUsersAtRoom(self, id):
 
         users = list(self.roomRepository.findUsersAtRoom(id))
 
-        return users if len(users) > 0 else "No users joined this room!"
+        return users
 
     def findRoomMessages(self, id):
 
         messages = list(self.roomRepository.findRoomMessages(id))
 
-        return messages if len(messages) > 0 else "No messages were sent in this room!"
+        return messages
 
     def findRoomFiles(self, id):
 
@@ -31,7 +31,7 @@ class RoomService():
 
         files = list(map(lambda message: (message.file_name, message.file), files))
 
-        return files if len(files) > 0 else "No files attached to this room!"
+        return files
 
     def saveRoom(self, room_name):
 
@@ -46,11 +46,11 @@ class RoomService():
 
             self.insertUserInRoom(new_room_id, user_id)
 
-            return f"Created room {room} succesfully!"
+            return None
 
-        except:
+        except Exception as ex:
 
-            return "Not corresponding data was inserted"
+            return str(ex)
 
     def insertUserInRoom(self, room_id, user_id):
 
@@ -59,7 +59,7 @@ class RoomService():
 
             self.roomRepository.insertUserInRoom(room_user)
 
-            return f"User joined succesfully!"
+            return None
 
         except:
 

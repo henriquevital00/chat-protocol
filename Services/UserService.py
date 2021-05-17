@@ -8,7 +8,7 @@ class UserService():
 
         users = list(self.userRepository.findAll())
 
-        return users if len(users)> 0 else "No users registered!"
+        return users
 
     def findUserRooms(self, id: int):
 
@@ -34,7 +34,7 @@ class UserService():
 
             self.userRepository.saveUser(user)
 
-            return f"Inserted user {username} succesfulyy!"
+            return None
 
         except:
 
