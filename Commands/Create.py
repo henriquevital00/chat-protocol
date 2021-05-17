@@ -1,7 +1,10 @@
+from Controllers.RoomController import RoomController
+
+
 class Create:
     @staticmethod
     def create(room):
-        pass
+        print(RoomController().saveRoom(room))
 
     @staticmethod
     def run(command):
