@@ -1,6 +1,5 @@
 from Models.Message import Message
 
 class MessageRepository():
-
-    def findAll(self):
-        pass
+        def saveMessage(self, message):
+            return Message.create(**message)
