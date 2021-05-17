@@ -25,3 +25,7 @@ class AccountService():
 
         if Auth.logged_user() is not None:
             Auth.logout()
+
+            return None
+
+        return "No user logged in"

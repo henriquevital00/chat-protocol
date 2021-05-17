@@ -15,7 +15,13 @@ class AccountController():
         return Ok(Auth.logged_user())
 
     def signOut(self):
-        self.accountService.signOut()
+
+        responseBody = self.accountService.signOut()
+
+        if responseBody is not None:
+            return BadRequest(responseBody)
+
+        return Ok("Sign out succesfully! Bye")
 
 
 
