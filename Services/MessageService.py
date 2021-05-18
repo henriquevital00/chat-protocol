@@ -1,8 +1,8 @@
 from Repositories.MessageRepository import MessageRepository
 
 
-class messageService():
-    MessageRepository = MessageRepository()
+class MessageService():
+    messageRepository = MessageRepository()
 
     def saveMessage(self, from_user_id, content, room_id=None, to_user_id=None, file=None, file_name=None):
 
@@ -12,7 +12,13 @@ class messageService():
 
             self.messageRepository.saveMessage(message)
 
-            return f"Created room {message} succesfully!"
+            return None
 
-        except:
-            return "Not corresponding data was inserted"
+        except Exception as ex:
+            return str(ex)
+
+    def findPrivateMessages(self, id_user_from, id_user_to):
+        messages = list(self.messageRepository.findPrivateMessages(id_user_from, id_user_to))
+        print(messages)
+        return messages
+
