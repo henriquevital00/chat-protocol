@@ -1,9 +1,13 @@
 from Repositories.RoomRepository import RoomRepository
 from Auth.Auth import Auth
 
+
 class RoomService():
 
     roomRepository = RoomRepository()
+
+    def findByName(self, room_name):
+        return list(self.roomRepository.findByName(room_name))
 
     def findAll(self):
 
@@ -29,7 +33,8 @@ class RoomService():
 
         files = list(filter(lambda message: message.file != None, files))
 
-        files = list(map(lambda message: (message.file_name, message.file), files))
+        files = list(
+            map(lambda message: (message.file_name, message.file), files))
 
         return files
 

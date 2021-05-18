@@ -2,10 +2,18 @@ from Services.RoomService import RoomService
 from Auth.Decorators import Authorization
 from Server.Response.Status import *
 
+
 @Authorization
 class RoomController():
 
     roomService = RoomService()
+
+    def findByName(self, room_name):
+        room_id = self.roomService.findByName(room_name)
+
+        if not len(room_id):
+            return BadRequest('Room was not finded')
+        return Ok(room_id)
 
     def findAll(self):
 
