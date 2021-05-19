@@ -16,6 +16,7 @@ class MessageController():
         return Ok(f"Message sent successfully!")
 
     def findPrivateMessages(self, id_user_from, id_user_to):
+
         messages = self.messageService.findPrivateMessages(id_user_from, id_user_to)
 
         if not len(messages):

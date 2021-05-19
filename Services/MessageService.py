@@ -18,7 +18,12 @@ class MessageService():
             return str(ex)
 
     def findPrivateMessages(self, id_user_from, id_user_to):
-        messages = list(self.messageRepository.findPrivateMessages(id_user_from, id_user_to))
-        print(messages)
+
+        messages = list(self.messageRepository.findPrivateMessages())
+
+        messages = list(filter(lambda message : message.from_user.id == id_user_from
+                                                and message.to_user.id == id_user_to ,
+                               messages))
+
         return messages
 
