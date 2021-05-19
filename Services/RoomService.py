@@ -49,7 +49,7 @@ class RoomService():
 
             new_room_id = list(self.roomRepository.findAll())[-1].id
 
-            self.insertUserInRoom(new_room_id, user_id)
+            self.insertUserInRoom(new_room_id, user_id, True)
 
             return None
 
@@ -57,10 +57,10 @@ class RoomService():
 
             return str(ex)
 
-    def insertUserInRoom(self, room_id, user_id):
+    def insertUserInRoom(self, room_id, user_id, isInRoom = False):
 
         try:
-            room_user = {"room_id": room_id, "user_id": user_id}
+            room_user = {"room_id": room_id, "user_id": user_id, "isInRoom": isInRoom}
 
             self.roomRepository.insertUserInRoom(room_user)
 
