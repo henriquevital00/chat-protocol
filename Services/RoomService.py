@@ -21,11 +21,26 @@ class RoomService():
 
         return users
 
+    def findPendingUsers(self, id):
+
+        pusers = list(self.roomRepository.findUsersAtRoom(id))
+        pusers = list(filter(lambda user: user.isInRoom == 0, pusers))
+
+        return pusers
+
+
     def findRoomMessages(self, id):
 
         messages = list(self.roomRepository.findRoomMessages(id))
 
         return messages
+
+    def rejectUser(self, id):
+        try:
+            self.roomRepository.rejectUser(id)
+            return None
+        except Exception as ex:
+            return str(ex)
 
     def findRoomFiles(self, id):
 

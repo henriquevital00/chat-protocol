@@ -12,8 +12,6 @@ def runMigrations():
 def main():
     DbContext().get_conn()
     runMigrations()
-    AccountController().signIn("testUser", "123")
-
     #Server()
 
 if __name__ == '__main__':
