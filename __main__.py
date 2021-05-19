@@ -14,11 +14,13 @@ def main():
     runMigrations()
     AccountController().signIn("testUser", "123")
     pmessages = MessageController().findPrivateMessages(1, 2)
-    print(pmessages)
-    for pm in pmessages:
-        print(f'from_user => {pm}')
-        print(f'to_user => {pm.to_user.username}')
-        print(f'content => {pm.content}')
+    print('messagens ==> ', pmessages)
+    for m in pmessages:
+        print('m => ', m.content)
+    #for pm in pmessages:
+    #    print(f'from_user => {pm}')
+    #    print(f'to_user => {pm.to_user.username}')
+    #    print(f'content => {pm.content}')
 
     
     #Server()
