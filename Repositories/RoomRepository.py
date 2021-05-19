@@ -23,6 +23,10 @@ class RoomRepository():
                                    on=(Message.from_user_id == User.id),
                                    attr='user').where(Message.room_id == id))
 
+    def rejectUser(self, id):
+        RoomUser.delete().where(RoomUser.user_id == id)
+
+
     def saveRoom(self, room):
         return Room.create(**room)
 
