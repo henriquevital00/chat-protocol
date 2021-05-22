@@ -5,6 +5,7 @@ from Models.Message import Message
 
 
 class RoomRepository():
+
     def findByName(self, room_name):
         return (Room.select().where(Room.name == room_name))
 
@@ -12,9 +13,9 @@ class RoomRepository():
         return Room.select()
 
     def findUsersAtRoom(self, id):
-        return (RoomUser.select(User.id, User.username).join(
-            User, on=(User.id == RoomUser.user_id), attr='user').join(
-                Room, on=(Room.id == RoomUser.room_id)).where(Room.id == id))
+        return (RoomUser.select(User.id, User.username, Room.admin_id)
+            .join(User, on=(User.id == RoomUser.user_id), attr='user')
+            .join(Room, on=(Room.id == RoomUser.room_id), attr='room').where(Room.id == id))
 
     def findRoomMessages(self, id):
         return (Message.select(User.username, Message.content,

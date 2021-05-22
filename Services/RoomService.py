@@ -24,6 +24,11 @@ class RoomService():
 
     def findPendingUsers(self, id):
 
+        room_id = Session.getRoomId()
+
+        if not self.isRoomAdmin():
+            return []
+
         pusers = list(self.roomRepository.findUsersAtRoom(id))
         pusers = list(filter(lambda user: not user.isInRoom, pusers))
 
@@ -36,11 +41,17 @@ class RoomService():
 
         return messages
 
-    def rejectUser(self, id):
+    def rejectUser(self, user_id):
         try:
             room_id = Session.getRoomId()
+
+            if not self.isRoomAdmin():
+                raise Exception("Not allowed!")
+
             self.roomRepository.rejectUser(user_id, room_id)
+
             return None
+
         except Exception as ex:
             return str(ex)
 
@@ -48,10 +59,25 @@ class RoomService():
     def acceptUser(self, user_id):
         try:
             room_id = Session.getRoomId()
+
+            if not self.isRoomAdmin():
+                raise Exception("Not allowed!")
+
             self.roomRepository.acceptUser(user_id, room_id)
+
             return None
+
         except Exception as ex:
             return str(ex)
+
+    def isRoomAdmin(self):
+
+        room_id = Session.getRoomId()
+
+        roomUsers = self.findUsersAtRoom(room_id)
+        roomUsers = list(filter(lambda room_user: room_user.room.admin_id == Auth.logged_user(), roomUsers))
+
+        return len(roomUsers)
 
     def findRoomFiles(self, id):
 
