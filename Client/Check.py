@@ -21,4 +21,4 @@ class Check:
             print('This is not a valid command')
 
 
-Check.validateCommand('send -m "Bueno viadao enrustido"')
+Check.validateCommand('send -m "Henrique viado"')

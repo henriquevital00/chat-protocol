@@ -5,7 +5,7 @@ from Controllers.RoomController import RoomController
 class Mv:
     @staticmethod
     def move(room):
-        Session.get_instance(RoomController().findByName(room)[0])
+        print(Session.get_instance(RoomController().findByName(room)[0]))
 
     @staticmethod
     def run(command):

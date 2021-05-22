@@ -1,18 +1,19 @@
 from Controllers.MessageController import MessageController
 from Auth.Auth import Auth
+from Auth.Session import Session 
 
 from_user = Auth()
-mc = MessageController()
+
 
 class Send:
 
     @staticmethod
     def sendPrivateMsg(message, to_user):
-        mc.saveMessage(from_user.logged_user(), message, to_user=to_user)
+        print(MessageController().saveMessage(from_user.logged_user(), message, to_user=to_user))
 
     @staticmethod
-    def sendGroupMsg(message, to_user):
-        mc.saveMessage(from_user.logged_user(), message)
+    def sendGroupMsg(message):
+        print(MessageController().saveMessage(from_user.logged_user(), message, room_id=Session.getRoomId()))
 
 
     @staticmethod
@@ -31,5 +32,5 @@ class Send:
            
         else:
             if var[0] == "-m":
-                Send.sendGroupMsg(string, to_user)
+                Send.sendGroupMsg(string)
            

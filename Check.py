@@ -1,5 +1,4 @@
 import re
-from Commands.Get import Get
 from Commands.List import List
 from Commands.Send import Send
 from Commands.Create import Create
@@ -25,6 +24,9 @@ class Check:
             print('This is not a valid command')
 
 
-Check.validateCommand('login abc abc')
-Check.validateCommand('create abcdefgh')
+print("loga usuario")
+Check.validateCommand('login felipe 123456')
+print("move usuario")
 Check.validateCommand('mv abcdefgh')
+print("Envia mensagem")
+Check.validateCommand('send -m mensagem para sala abcdefgh')

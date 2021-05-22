@@ -28,7 +28,7 @@ class UserService():
         try:
 
             if len(self.userRepository.findByUsername(username)) == 1:
-                raise Exception("User already registered with this username!")
+                return "User already registered with this username!"
 
             user = {"username": username,"password": password}
 
