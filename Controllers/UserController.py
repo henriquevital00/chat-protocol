@@ -1,6 +1,8 @@
 from Services.UserService import UserService
 from Auth.Decorators import Authorization
 from Server.Response.Status import *
+from Auth.Auth import Auth
+
 
 class UserController():
 
@@ -25,7 +27,6 @@ class UserController():
 
         return Ok(users)
 
-
     @Authorization
     def findById(self, id):
 
@@ -36,11 +37,10 @@ class UserController():
 
         return Ok(user)
 
-
     @Authorization
-    def findUserRooms(self, id: int):
+    def findUserRooms(self):
 
-        rooms = self.userService.findUserRooms(id)
+        rooms = self.userService.findUserRooms(Auth.logged_user().id)
 
         if not len(rooms):
             return BadRequest(f"No rooms")

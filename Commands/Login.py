@@ -1,4 +1,5 @@
 from Controllers.AccountController import AccountController
+from Auth.Auth import Auth
 
 
 class Login:
