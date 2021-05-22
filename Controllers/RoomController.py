@@ -60,14 +60,23 @@ class RoomController():
 
         return Ok(messages)
 
-    def rejectUser(self, id):
+    def rejectUser(self, user_id):
 
-        responseBody = self.roomService.rejectUser(id)
+        responseBody = self.roomService.rejectUser(user_id)
 
         if responseBody is not None:
             return BadRequest(responseBody)
 
         return Ok("User rejected!")
+
+
+    def acceptUser(self, user_id):
+        responseBody = self.roomService.acceptUser(user_id)
+
+        if responseBody is not None:
+            return BadRequest(responseBody)
+
+        return Ok("User accepted!")
 
     def findRoomFiles(self, id):
 

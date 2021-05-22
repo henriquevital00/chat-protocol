@@ -1,7 +1,9 @@
+from Controllers.RoomController import RoomController
+
 class Accept:
     @staticmethod
     def accept(username):
-        pass
+        RoomController().acceptUser(Session.getRoomId())
 
     @staticmethod
     def run(command):

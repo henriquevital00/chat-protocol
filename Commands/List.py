@@ -22,10 +22,16 @@ class List:
                 UserController().findUserRooms()))
 
     @staticmethod
+    def listPendingUsers():
+        RoomController().findPendingUsers(Session.getRoomId())
+
+    @staticmethod
     def run(command):
         var = command.split(' ')
         del var[0]
         if var[0] == 'users':
             List.listUsers()
+        elif var[0] == '-r':
+            List.listPendingUsers()
         else:
             List.listRooms()

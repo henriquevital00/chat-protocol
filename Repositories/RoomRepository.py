@@ -23,8 +23,12 @@ class RoomRepository():
                                    on=(Message.from_user_id == User.id),
                                    attr='user').where(Message.room_id == id))
 
-    def rejectUser(self, id):
-        RoomUser.delete().where(RoomUser.user_id == id)
+    def rejectUser(self, user_id, room_id):
+        RoomUser.delete().where(RoomUser.user_id == user_id & RoomUser.room_id == room_id)
+
+    def acceptUser(self, user_id, room_id):
+        RoomUser.update(isInRoom=True).where(RoomUser.user_id == user_id & RoomUser.room_id == room_id)
+
 
 
     def saveRoom(self, room):

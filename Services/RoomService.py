@@ -1,5 +1,6 @@
 from Repositories.RoomRepository import RoomRepository
 from Auth.Auth import Auth
+from Auth.Session import Session
 
 
 class RoomService():
@@ -24,7 +25,7 @@ class RoomService():
     def findPendingUsers(self, id):
 
         pusers = list(self.roomRepository.findUsersAtRoom(id))
-        pusers = list(filter(lambda user: user.isInRoom == 0, pusers))
+        pusers = list(filter(lambda user: not user.isInRoom, pusers))
 
         return pusers
 
@@ -37,7 +38,17 @@ class RoomService():
 
     def rejectUser(self, id):
         try:
-            self.roomRepository.rejectUser(id)
+            room_id = Session.getRoomId()
+            self.roomRepository.rejectUser(user_id, room_id)
+            return None
+        except Exception as ex:
+            return str(ex)
+
+
+    def acceptUser(self, user_id):
+        try:
+            room_id = Session.getRoomId()
+            self.roomRepository.acceptUser(user_id, room_id)
             return None
         except Exception as ex:
             return str(ex)
