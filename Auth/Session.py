@@ -3,8 +3,7 @@ class Session:
 
     @staticmethod
     def get_instance(room=None):
-        if Session.room_id == None:
-            Session.room_id = room
+        Session.room_id = room
 
         return Session.room_id
 
