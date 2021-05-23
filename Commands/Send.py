@@ -1,36 +1,31 @@
 from Controllers.MessageController import MessageController
+from Controllers.UserController import UserController
 from Auth.Auth import Auth
-from Auth.Session import Session 
-
-from_user = Auth()
+from Auth.Session import Session
 
 
 class Send:
-
     @staticmethod
     def sendPrivateMsg(message, to_user):
-        print(MessageController().saveMessage(from_user.logged_user(), message, to_user=to_user))
+        print(MessageController().saveMessage(
+            Auth.logged_user(),
+            message,
+            to_user_id=UserController().findByName(to_user)[0].id))
 
     @staticmethod
     def sendGroupMsg(message):
-        print(MessageController().saveMessage(from_user.logged_user(), message, room_id=Session.getRoomId()))
-
+        print(MessageController().saveMessage(Auth.logged_user(),
+                                              message,
+                                              room_id=Session.getRoomId()))
 
     @staticmethod
     def run(command):
-        var = command.split(' ')
-        del var[0]
-        string = ""
-        for i in range(1, len(var)-1):
-            string += var[i] + " "
-        string += var[len(var)-1]
+        string = command.partition(' -m ')
+        split_command = string[0].split()
+        text = string[2].strip('"')
 
-        if var[0] != "-m": 
-            to_user = var[0]
-            if var[1] == "-m":
-                Send.sendPrivateMsg(string, to_user)
-           
+        if len(split_command) == 2:
+            to_user = split_command[1]
+            Send.sendPrivateMsg(text, to_user)
         else:
-            if var[0] == "-m":
-                Send.sendGroupMsg(string)
-           
+            Send.sendGroupMsg(text)
