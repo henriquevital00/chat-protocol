@@ -8,6 +8,4 @@ class Message(BaseModel):
     from_user_id = ForeignKeyField(User)
     to_user_id = ForeignKeyField(User, null=True)
     content = TextField(null = True)
-    file_name = TextField(null = True)
-    file = BlobField(null = True)
     room_id = ForeignKeyField(Room, null=True)
