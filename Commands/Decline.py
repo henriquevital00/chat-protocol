@@ -1,6 +1,7 @@
 from Controllers.RoomController import RoomController
 from Controllers.UserController import UserController
 
+
 class Decline:
     @staticmethod
     def decline(username):
@@ -8,7 +9,7 @@ class Decline:
 
         user_id = userController.findByName(username)[0].id
 
-        print(roomController.acceptUser(user_id))
+        return roomController.acceptUser(user_id)
 
     @staticmethod
     def run(command):

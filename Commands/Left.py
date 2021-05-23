@@ -3,12 +3,10 @@ from Auth.Session import Session
 
 class Left:
     @staticmethod
-    def leftRoom(room):
+    def leftRoom():
         Session.get_instance(None)
+        return 'Left room'
 
     @staticmethod
     def run(command):
-        var = command.split(' ')
-        del var[0]
-        if var[0] == '-r':
-            Left.leftRoom(var[0])
+        Left.leftRoom()

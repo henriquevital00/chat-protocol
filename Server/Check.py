@@ -15,7 +15,7 @@ from Services.UserService import UserService
 class Check:
     @staticmethod
     def validateCommand(command):
-        pattern = '(^send (-m)?\ \".+\"$)|(^send \S+( -m)?\ \".+\"$)|(^get [\w\d\/]+\.\w+$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left( -r)?\ \S+$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)'
+        pattern = '(^send (-m)?\ \".+\"$)|(^send \S+( -m)?\ \".+\"$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left (-r)$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)'
         isValid = re.search(pattern, command)
         if isValid:
             string = command.split(' ')[0]

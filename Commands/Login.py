@@ -5,7 +5,7 @@ from Auth.Auth import Auth
 class Login:
     @staticmethod
     def login(username, password):
-        AccountController().signIn(username, password)
+        return AccountController().signIn(username, password)
 
     @staticmethod
     def run(command):

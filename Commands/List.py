@@ -4,7 +4,6 @@ from Auth.Session import Session
 
 
 class List:
-
     @staticmethod
     def listUsers():
 
@@ -12,16 +11,16 @@ class List:
             users_name = RoomController().findUsersAtRoom(Session.getRoomId())
             return list(map(lambda room: room.user.username, users_name))
         else:
-            print('No users at currently room')
+            return 'No users at currently room'
 
     @staticmethod
     def listRooms():
         rooms = UserController().findUserRooms()
-        return list(map(lambda room: room.name,rooms))
+        return list(map(lambda room: room.name, rooms))
 
     @staticmethod
     def listPendingUsers():
-        print(RoomController().findPendingUsers())
+        return RoomController().findPendingUsers()
 
     @staticmethod
     def run(command):

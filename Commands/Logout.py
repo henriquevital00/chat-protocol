@@ -4,7 +4,7 @@ from Controllers.AccountController import AccountController
 class Logout:
     @staticmethod
     def logout():
-        print(AccountController().signOut())
+        return AccountController().signOut()
 
     @staticmethod
     def run(command):

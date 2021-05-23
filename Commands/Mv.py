@@ -16,7 +16,7 @@ class Mv:
                 Session.get_instance(roomController.findByName(room)[0])
                 return
 
-        print("\033[91m'User not in room!\033[0m")
+        return ("\033[91m'User not in room!\033[0m")
 
     @staticmethod
     def run(command):

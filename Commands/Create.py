@@ -5,11 +5,11 @@ from Controllers.UserController import UserController
 class Create:
     @staticmethod
     def createUser(username, password):
-        print(UserController().saveUser(username, password))
+        return UserController().saveUser(username, password)
 
     @staticmethod
     def createRoom(room):
-        print(RoomController().saveRoom(room))
+        return RoomController().saveRoom(room)
 
     @staticmethod
     def run(command):

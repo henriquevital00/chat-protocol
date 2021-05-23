@@ -7,16 +7,16 @@ from Auth.Session import Session
 class Send:
     @staticmethod
     def sendPrivateMsg(message, to_user):
-        print(MessageController().saveMessage(
+        return MessageController().saveMessage(
             Auth.logged_user(),
             message,
-            to_user_id=UserController().findByName(to_user)[0].id))
+            to_user_id=UserController().findByName(to_user)[0].id)
 
     @staticmethod
     def sendGroupMsg(message):
-        print(MessageController().saveMessage(Auth.logged_user(),
-                                              message,
-                                              room_id=Session.getRoomId()))
+        return MessageController().saveMessage(Auth.logged_user(),
+                                               message,
+                                               room_id=Session.getRoomId())
 
     @staticmethod
     def run(command):

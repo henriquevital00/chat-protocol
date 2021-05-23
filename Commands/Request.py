@@ -1,7 +1,7 @@
 from Controllers.RoomController import RoomController
 
-class Request:
 
+class Request:
     @staticmethod
     def request(room):
 
@@ -9,7 +9,7 @@ class Request:
 
         room_id = roomController.findByName(room)[0].id
 
-        print(roomController.createRoomRequest())
+        return roomController.createRoomRequest()
 
     @staticmethod
     def run(command):
