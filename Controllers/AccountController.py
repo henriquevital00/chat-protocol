@@ -24,5 +24,3 @@ class AccountController():
         return Ok("Sign out succesfully! Bye")
 
 
-
-

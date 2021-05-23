@@ -23,4 +23,3 @@ class MessageController():
             return BadRequest("No private messages with this user")
 
         return Ok(messages)
-

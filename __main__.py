@@ -7,7 +7,8 @@ from Server.Server import Server
 from Auth.Auth import Auth
 
 def runMigrations():
-    CreatedTableMigration().migrate()
+    # CreatedTableMigration().migrate()
+    pass
 
 def main():
     DbContext().get_conn()

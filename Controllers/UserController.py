@@ -18,6 +18,15 @@ class UserController():
         return Ok(f"Created user {username} successfully!")
 
     @Authorization
+    def findByName(self, username):
+        user = self.userService.findByName(username)
+
+        if not len(user):
+            return BadRequest('User was not found')
+
+        return Ok(user)
+
+    @Authorization
     def findAll(self):
 
         users = self.userService.findAll()

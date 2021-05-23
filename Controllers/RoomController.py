@@ -12,7 +12,7 @@ class RoomController():
         room_id = self.roomService.findByName(room_name)
 
         if not len(room_id):
-            return BadRequest('Room was not finded')
+            return BadRequest('Room was not found')
         return Ok(room_id)
 
     def findAll(self):
@@ -42,14 +42,11 @@ class RoomController():
 
         return Ok(users)
 
-    def findPendingUsers(self, id):
-        pusers = self.roomService.findPendingUsers(id)
+    def findPendingUsers(self):
+        pusers = self.roomService.findPendingUsers()
 
         if not len(pusers):
             return BadRequest("No pending users at room")
-
-
-
 
     def findRoomMessages(self, id):
 
@@ -69,7 +66,6 @@ class RoomController():
 
         return Ok("User rejected!")
 
-
     def acceptUser(self, user_id):
         responseBody = self.roomService.acceptUser(user_id)
 
@@ -78,14 +74,15 @@ class RoomController():
 
         return Ok("User accepted!")
 
-    def findRoomFiles(self, id):
 
-        files = self.roomService.findRoomFiles(id)
+    def createRoomRequest(self, id):
+        responseBody = self.roomService.createRequestToRoom(id)
 
-        if not len(files):
-            return BadRequest("No files attached to this room!")
+        if responseBody is not None:
+            return BadRequest(responseBody)
 
-        return Ok(files)
+        return Ok("User admin will check your request!")
+
 
     def insertUserInRoom(self, room_id, user_id):
 

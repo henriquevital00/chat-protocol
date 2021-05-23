@@ -22,18 +22,16 @@ class RoomService():
 
         return users
 
-    def findPendingUsers(self, id):
+    def findPendingUsers(self):
 
         room_id = Session.getRoomId()
 
         if not self.isRoomAdmin():
             return []
 
-        pusers = list(self.roomRepository.findUsersAtRoom(id))
-        pusers = list(filter(lambda user: not user.isInRoom, pusers))
+        pusers = list(self.roomRepository.findPendingUsers(room_id))
 
         return pusers
-
 
     def findRoomMessages(self, id):
 
@@ -55,7 +53,6 @@ class RoomService():
         except Exception as ex:
             return str(ex)
 
-
     def acceptUser(self, user_id):
         try:
             room_id = Session.getRoomId()
@@ -70,25 +67,26 @@ class RoomService():
         except Exception as ex:
             return str(ex)
 
+    def createRequestToRoom(self, id):
+
+        try:
+            user_id = Auth.logged_user()
+
+            self.roomRepository.createRequestToRoom({"room_id": id, "user_id": user_id})
+
+            return None
+
+        except Exception as ex:
+            return str(ex)
+
     def isRoomAdmin(self):
 
         room_id = Session.getRoomId()
+        user_id = Auth.logged_user().id
 
-        roomUsers = self.findUsersAtRoom(room_id)
-        roomUsers = list(filter(lambda room_user: room_user.room.admin_id == Auth.logged_user(), roomUsers))
+        roomUsers = list(self.roomRepository.isRoomAdmin(room_id, user_id))
 
         return len(roomUsers)
-
-    def findRoomFiles(self, id):
-
-        files = list(self.roomRepository.findRoomMessages(id))
-
-        files = list(filter(lambda message: message.file != None, files))
-
-        files = list(
-            map(lambda message: (message.file_name, message.file), files))
-
-        return files
 
     def saveRoom(self, room_name):
 
@@ -109,10 +107,14 @@ class RoomService():
 
             return str(ex)
 
-    def insertUserInRoom(self, room_id, user_id, isInRoom = False):
+    def insertUserInRoom(self, room_id, user_id, isInRoom=False):
 
         try:
-            room_user = {"room_id": room_id, "user_id": user_id, "isInRoom": isInRoom}
+            room_user = {
+                "room_id": room_id,
+                "user_id": user_id,
+                "isInRoom": isInRoom
+            }
 
             self.roomRepository.insertUserInRoom(room_user)
 

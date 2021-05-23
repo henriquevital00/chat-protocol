@@ -1,5 +1,6 @@
 from Repositories.UserRepository import UserRepository
 
+
 class UserService():
 
     userRepository = UserRepository()
@@ -10,12 +11,15 @@ class UserService():
 
         return users
 
+    def findByName(self, username):
+        return list(self.userRepository.findByName(username))
+
     def findUserRooms(self, id: int):
 
         rooms = list(self.userRepository.findUserRooms(id))
+        rooms = list(filter(lambda r: r.isInRoom, rooms))
 
         return rooms if len(rooms) > 0 else "No rooms for this user"
-
 
     def findById(self, id):
 
@@ -30,7 +34,7 @@ class UserService():
             if len(self.userRepository.findByUsername(username)) == 1:
                 return "User already registered with this username!"
 
-            user = {"username": username,"password": password}
+            user = {"username": username, "password": password}
 
             self.userRepository.saveUser(user)
 
@@ -39,6 +43,3 @@ class UserService():
         except:
 
             return "Not corresponding data was inserted"
-
-
-

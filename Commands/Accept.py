@@ -1,9 +1,16 @@
 from Controllers.RoomController import RoomController
+from Controllers.UserController import UserController
 
 class Accept:
+
     @staticmethod
     def accept(username):
-        RoomController().acceptUser(Session.getRoomId())
+
+        userController, roomController = (UserController(), RoomController())
+
+        user_id = userController.findByName(username)[0].id
+
+        print(roomController.acceptUser(user_id))
 
     @staticmethod
     def run(command):

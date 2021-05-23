@@ -8,13 +8,14 @@ from Commands.Left import Left
 from Commands.Login import Login
 from Commands.Logout import Logout
 from Commands.Mv import Mv
+from Commands.Request import Request
 from Services.UserService import UserService
 
 
 class Check:
     @staticmethod
     def validateCommand(command):
-        pattern = '(^send (-m)?\ .+$)|(^send \S+ (((-m)?\ .+)|((-f)?\ \S+\.\S+))$)|(^get [\w\d\/]+\.\w+$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left( -r)?\ \S+$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)'
+        pattern = '(^send (-m)?\ .+$)|(^send (-f)?\ \S+\.\S+$)|(^send \S+ (((-m)?\ .+)|((-f)?\ \S+\.\S+))$)|(^get [\w\d\/]+\.\w+$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left( -r)?\ \S+$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)'
         isValid = re.search(pattern, command)
         if isValid:
             string = command.split(' ')[0]
@@ -25,13 +26,15 @@ class Check:
 
 
 print("loga usuario")
-Check.validateCommand('login felipe 123456')
-print("move usuario")
-Check.validateCommand('create -r a')
-Check.validateCommand('mv abc')
-print("Lista usuarios pendentes")
-Check.validateCommand('list -r')
-print("Aceita usuarios pendentes")
-Check.validateCommand('accept testUser')
-#print("Rejeita usuarios pendentes")
+Check.validateCommand('login testUser 123')
+
+
+# Check.validateCommand('mv abcdefgh')
+# print("Lista usuarios pendentes")
+# Check.validateCommand('list -r')
+# print("Rejeita usuarios pendentes")
+# Check.validateCommand('decline testUser')
+# print("Aceita usuarios pendentes")
+# Check.validateCommand('accept testUser')
+# #print("Rejeita usuarios pendentes")
 #Check.validateCommand('decline jao')
