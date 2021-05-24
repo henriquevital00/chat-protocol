@@ -23,8 +23,6 @@ class ClientThread(Session):
                         client.room_broadcast(result, server)
                     else:
                         client.conn.send(result.encode())
-                else:
-                    client.remove(server)
 
             except Exception as ex:
                 print(ex)
