@@ -1,7 +1,7 @@
 from Commands.BaseCommand import BaseCommand
 
-class Create(BaseCommand):
 
+class Create(BaseCommand):
     def __init__(self, client):
         super().__init__(client)
 
@@ -14,11 +14,12 @@ class Create(BaseCommand):
     def run(self, command):
 
         command = command.split()
+        del command[0]
 
-        if command[1] == '-r':
-            room_name = command[2]
+        if command[0] == '-r':
+            room_name = command[1]
             return self.createRoom(room_name)
 
         else:
-            username, password = command.split()[1:]
+            username, password = command
             return self.createUser(username, password)

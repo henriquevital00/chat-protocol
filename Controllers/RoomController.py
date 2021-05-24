@@ -2,8 +2,8 @@ from Services.RoomService import RoomService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
 
-class RoomController(BaseController):
 
+class RoomController(BaseController):
     def __init__(self, client):
         super().__init__(client)
         self.roomService = RoomService(client)
@@ -47,7 +47,8 @@ class RoomController(BaseController):
 
         if not len(pusers):
             return BadRequest("No pending users at room")
-        return Ok(puser)
+
+        return Ok(pusers)
 
     def findRoomMessages(self):
 

@@ -1,17 +1,15 @@
 from Commands.BaseCommand import BaseCommand
 
-class Accept(BaseCommand):
 
+class Accept(BaseCommand):
     def __init__(self, client):
         super().__init__(client)
 
+    def accept(self, username):
 
-    def accept(self, username, client):
+        user_id = self.client.userController.findByName(username)[0].id
 
-        user_id = client.userController.findByName(username)[0].id
-
-        return client.roomController.acceptUser(user_id)
-
+        return self.client.roomController.acceptUser(user_id)
 
     def run(self, command):
         username = command.split()[1]

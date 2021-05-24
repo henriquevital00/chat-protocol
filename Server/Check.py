@@ -14,10 +14,9 @@ from Services.UserService import UserService
 
 
 class Check:
-
     @staticmethod
     def validateCommand(command, client):
-        pattern = '(^send (-m)?\ \".+\"$)|(^send \S+( -m)?\ \".+\"$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left (-r)$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)|(exit)'
+        pattern = '(^send (-m)?\ \".+\"$)|(^list users$)|(^list rooms$)|(^list -r$)|(^list -a$)|(^accept \S+$)|(^decline \S+$)|(^left (-r)$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)'
 
         command = re.sub(r'\r\n', '', command)
 
@@ -26,6 +25,6 @@ class Check:
         if isValid:
             string = command.split(' ')[0]
             string = string.capitalize()
-            return eval(string)(client).run(command, client)
+            return eval(string)(client).run(command)
         else:
             return 'This is not a valid command'

@@ -1,7 +1,7 @@
 from Commands.BaseCommand import BaseCommand
 
-class Login(BaseCommand):
 
+class Login(BaseCommand):
     def __init__(self, client):
         super().__init__(client)
 
@@ -10,8 +10,9 @@ class Login(BaseCommand):
 
     def run(self, command):
 
-        del command[0] # delete "login"
+        command = command.split()
+        del command[0]  # delete "login"
 
-        username, password = command.split()
+        username, password = command
 
-        return Login.login(username, password)
+        return self.login(username, password)
