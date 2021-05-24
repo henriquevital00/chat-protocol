@@ -1,11 +1,10 @@
 from Repositories.RoomRepository import RoomRepository
-from Auth.Auth import Auth
-from Auth.Session import Session
 
 
 class RoomService():
-
-    roomRepository = RoomRepository()
+    def __init__(self, client):
+        self.client = client
+        self.roomRepository = RoomRepository()
 
     def findByName(self, room_name):
         return list(self.roomRepository.findByName(room_name))
@@ -24,7 +23,7 @@ class RoomService():
 
     def findPendingUsers(self):
 
-        room_id = Session.getRoomId()
+        room_id = self.client.activeRoom
 
         if not self.isRoomAdmin():
             return []
@@ -33,15 +32,16 @@ class RoomService():
 
         return pusers
 
-    def findRoomMessages(self, id):
+    def findRoomMessages(self):
 
-        messages = list(self.roomRepository.findRoomMessages(id))
+        messages = list(
+            self.roomRepository.findRoomMessages(self.client.activeRoom))
 
         return messages
 
     def rejectUser(self, user_id):
         try:
-            room_id = Session.getRoomId()
+            room_id = self.client.activeRoom
 
             if not self.isRoomAdmin():
                 raise Exception("Not allowed!")
@@ -55,7 +55,7 @@ class RoomService():
 
     def acceptUser(self, user_id):
         try:
-            room_id = Session.getRoomId()
+            room_id = self.client.activeRoom
 
             if not self.isRoomAdmin():
                 raise Exception("Not allowed!")
@@ -70,9 +70,12 @@ class RoomService():
     def createRequestToRoom(self, id):
 
         try:
-            user_id = Auth.logged_user()
+            user_id = self.client.accountData.id
 
-            self.roomRepository.createRequestToRoom({"room_id": id, "user_id": user_id})
+            self.roomRepository.createRequestToRoom({
+                "room_id": id,
+                "user_id": user_id
+            })
 
             return None
 
@@ -81,8 +84,8 @@ class RoomService():
 
     def isRoomAdmin(self):
 
-        room_id = Session.getRoomId()
-        user_id = Auth.logged_user().id
+        room_id = self.client.activeRoom
+        user_id = self.client.accountData.id
 
         roomUsers = list(self.roomRepository.isRoomAdmin(room_id, user_id))
 
@@ -91,7 +94,7 @@ class RoomService():
     def saveRoom(self, room_name):
 
         try:
-            user_id = Auth.logged_user().id
+            user_id = self.client.accountData.id
 
             room = {"name": room_name, "admin_id": user_id}
 

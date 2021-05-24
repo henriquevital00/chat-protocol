@@ -3,7 +3,9 @@ from Repositories.UserRepository import UserRepository
 
 class UserService():
 
-    userRepository = UserRepository()
+    def __init__(self, client):
+        self.client = client
+        self.userRepository = UserRepository()
 
     def findAll(self):
 

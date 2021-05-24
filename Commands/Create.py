@@ -4,17 +4,18 @@ from Controllers.UserController import UserController
 
 class Create:
     @staticmethod
-    def createUser(username, password):
-        return UserController().saveUser(username, password)
+    def createUser(username, password, client):
+        return client.userController.saveUser(username, password)
 
     @staticmethod
-    def createRoom(room):
-        return RoomController().saveRoom(room)
+    def createRoom(room, client):
+        return client.roomController.saveRoom(room)
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
+
         if var[1] == '-r':
-            Create.createRoom(var[2])
+            return Create.createRoom(var[2], client)
         else:
-            Create.createUser(var[1], var[2])
+            return Create.createUser(var[1], var[2], client)

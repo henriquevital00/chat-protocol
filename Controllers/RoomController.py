@@ -1,12 +1,11 @@
 from Services.RoomService import RoomService
-from Auth.Decorators import Authorization
 from Server.Response.Status import *
 
 
-@Authorization
 class RoomController():
-
-    roomService = RoomService()
+    def __init__(self, client):
+        self.client = client
+        self.roomService = RoomService(client)
 
     def findByName(self, room_name):
         room_id = self.roomService.findByName(room_name)
@@ -47,10 +46,11 @@ class RoomController():
 
         if not len(pusers):
             return BadRequest("No pending users at room")
+        return Ok(puser)
 
-    def findRoomMessages(self, id):
+    def findRoomMessages(self):
 
-        messages = self.roomService.findRoomMessages(id)
+        messages = self.roomService.findRoomMessages()
 
         if not len(messages):
             return BadRequest("No messages were sent in this room!")
@@ -74,7 +74,6 @@ class RoomController():
 
         return Ok("User accepted!")
 
-
     def createRoomRequest(self, id):
         responseBody = self.roomService.createRequestToRoom(id)
 
@@ -82,7 +81,6 @@ class RoomController():
             return BadRequest(responseBody)
 
         return Ok("User admin will check your request!")
-
 
     def insertUserInRoom(self, room_id, user_id):
 

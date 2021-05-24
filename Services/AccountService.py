@@ -1,10 +1,10 @@
 from Repositories.UserRepository import UserRepository
-from Auth.Auth import Auth
 
 
 class AccountService():
-
-    userRepository = UserRepository()
+    def __init__(self, client):
+        self.client = client
+        self.userRepository = UserRepository()
 
     def signIn(self, username, password):
 
@@ -15,7 +15,9 @@ class AccountService():
             user = users[0]
 
             if password == user.password:
-                Auth.logged_user(user)
+                self.client.isLoggedIn = True
+                self.client.accountData = user
+                print(self.client.accountData)
 
                 return None
 
@@ -23,8 +25,9 @@ class AccountService():
 
     def signOut(self):
 
-        if Auth.logged_user() is not None:
-            Auth.logout()
+        if self.client.isLoggedIn:
+            self.client.isLoggedIn = False
+            self.client.accountData = None
 
             return None
 

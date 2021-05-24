@@ -1,34 +1,38 @@
-from Controllers.RoomController import RoomController
-from Controllers.UserController import UserController
-from Auth.Session import Session
-
-
 class List:
     @staticmethod
-    def listUsers():
+    def listUsers(client):
+        if client.activeRoom != None:
+            users_name = client.roomController.findUsersAtRoom(
+                client.activeRoom)
+            users_name = list(map(lambda room: room.user.username, users_name))
 
-        if Session.getRoomId() != None:
-            users_name = RoomController().findUsersAtRoom(Session.getRoomId())
-            return list(map(lambda room: room.user.username, users_name))
+            return '\n'.join(users_name)
         else:
             return 'No users at currently room'
 
     @staticmethod
-    def listRooms():
-        rooms = UserController().findUserRooms()
-        return list(map(lambda room: room.name, rooms))
+    def listRooms(client):
+        rooms = client.userController.findUserRooms()
+        if len(rooms) and isinstance(rooms, list):
+            rooms = list(map(lambda room: room.user_room.name, rooms))
+            return '\n'.join(rooms)
+        return rooms
 
     @staticmethod
-    def listPendingUsers():
-        return RoomController().findPendingUsers()
+    def listPendingUsers(client):
+        users = client.roomController.findPendingUsers()
+        if len(users) and isinstance(users, list):
+            users = list(map(lambda room: room.user.username, users))
+            return '\n'.join(users)
+        return users
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
         del var[0]
         if var[0] == 'users':
-            List.listUsers()
+            return List.listUsers(client)
         elif var[0] == '-r':
-            List.listPendingUsers()
+            return List.listPendingUsers(client)
         else:
-            List.listRooms()
+            return List.listRooms(client)

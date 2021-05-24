@@ -4,14 +4,12 @@ from Controllers.UserController import UserController
 
 class Decline:
     @staticmethod
-    def decline(username):
-        userController, roomController = (UserController(), RoomController())
+    def decline(username, client):
+        user_id = client.userController.findByName(username)[0].id
 
-        user_id = userController.findByName(username)[0].id
-
-        return roomController.acceptUser(user_id)
+        return client.roomController.rejectUser(user_id)
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
-        Decline.decline(var[1])
+        return Decline.decline(var[1], client)

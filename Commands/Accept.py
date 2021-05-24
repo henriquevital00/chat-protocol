@@ -4,15 +4,13 @@ from Controllers.UserController import UserController
 class Accept:
 
     @staticmethod
-    def accept(username):
+    def accept(username, client):
 
-        userController, roomController = (UserController(), RoomController())
+        user_id = client.userController.findByName(username)[0].id
 
-        user_id = userController.findByName(username)[0].id
-
-         return roomController.acceptUser(user_id)
+        return client.roomController.acceptUser(user_id)
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
-        Accept.accept(var[1])
+        return Accept.accept(var[1], client)

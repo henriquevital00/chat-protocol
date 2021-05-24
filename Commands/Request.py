@@ -3,15 +3,13 @@ from Controllers.RoomController import RoomController
 
 class Request:
     @staticmethod
-    def request(room):
+    def request(room, client):
 
-        roomController = RoomController()
+        room_id = client.roomController.findByName(room)[0].id
 
-        room_id = roomController.findByName(room)[0].id
-
-        return roomController.createRoomRequest()
+        return client.roomController.createRoomRequest(room_id)
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
-        Request.request(var[1])
+        return Request.request(var[1], client)

@@ -1,10 +1,11 @@
 from Services.AccountService import AccountService
-from Auth.Auth import Auth
 from Server.Response.Status import *
 
-class AccountController():
 
-    accountService = AccountService()
+class AccountController():
+    def __init__(self, client):
+        self.client = client
+        self.accountService = AccountService(client)
 
     def signIn(self, username, password):
         responseBody = self.accountService.signIn(username, password)
@@ -12,7 +13,7 @@ class AccountController():
         if responseBody is not None:
             return BadRequest(responseBody)
 
-        return Ok(Auth.logged_user())
+        return Ok("Logged succesfully")
 
     def signOut(self):
 
@@ -22,5 +23,3 @@ class AccountController():
             return BadRequest(responseBody)
 
         return Ok("Sign out succesfully! Bye")
-
-

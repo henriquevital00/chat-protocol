@@ -1,13 +1,24 @@
 from socket import *
-import os
+import _thread
+from Server.Check import Check
+from Controllers.RoomController import RoomController
+from Controllers.AccountController import AccountController
+from Controllers.UserController import UserController
+from Controllers.MessageController import MessageController
+import re
 
+import threading
 
-HOST = 'localhost'
-PORT = 8000
+print_lock = threading.Lock()
 
 
 class Server:
+
+    clients = []
+
     def __init__(self):
+
+        HOST, PORT = ('localhost', 8001)
 
         with socket(AF_INET, SOCK_STREAM) as sock:
 
@@ -17,17 +28,69 @@ class Server:
 
             while True:
                 conn, addr = sock.accept()
-                pid = os.fork()
-                if pid == 0:
-                    data = self.recv_all(conn)
-                    print(data)
 
-    def recv_all(self, conn):
-        buffer: int = 1024
-        msg: str = ''
-        endl: bin = b'\r\n'
-        chunk: bin = b''
-        while endl not in chunk:
-            chunk = conn.recv(buffer)
-            msg += str(chunk)
-        return msg
+                newClient = ClientThread(conn, addr)
+                self.clients.append(newClient)
+
+                _thread.start_new_thread(ClientThread.connect,
+                                         (newClient, self))
+
+
+class Client():
+    def __init__(self):
+
+        self.accountData = None
+        self.isLoggedIn = False
+        self.activeRoom = None
+
+        # Controllers
+        self.roomController = RoomController(self)
+        self.messageController = MessageController(self)
+        self.accountController = AccountController(self)
+        self.userController = UserController(self)
+
+
+class ClientThread(Client):
+    def __init__(self, conn, addr):
+        super().__init__()
+        self.conn = conn
+        self.addr = addr
+
+    @staticmethod
+    def connect(client, server):
+
+        while True:
+            try:
+                originalMessage = client.conn.recv(2048).decode()
+
+                if originalMessage:
+                    message = Check.validateCommand(
+                        re.sub(r'\r\n', '', originalMessage), client) + '\n\n'
+
+                    if client.activeRoom is not None and 'send' in originalMessage:
+                        client.broadcast(message, server)
+                    else:
+                        client.conn.send(message.encode())
+                else:
+                    client.remove(server)
+            except Exception as ex:
+                print(ex)
+                ex = str(ex) + '\n\n'
+                client.conn.send(ex.encode())
+                continue
+            except KeyboardInterrupt as e:
+                client.remove(server)
+                client.conn.close()
+
+    def broadcast(self, message, server):
+
+        for client in server.clients:
+
+            if client.activeRoom == self.activeRoom:
+
+                client.conn.send(message.encode())
+
+    def remove(self, server):
+
+        if self.conn in server.clients:
+            server.clients.remove(self.conn)

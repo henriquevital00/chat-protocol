@@ -3,9 +3,9 @@ from Controllers.AccountController import AccountController
 
 class Logout:
     @staticmethod
-    def logout():
-        return AccountController().signOut()
+    def logout(client):
+        return client.accountController.signOut()
 
     @staticmethod
-    def run(command):
-        Logout.logout()
+    def run(command, client):
+        return Logout.logout(client)

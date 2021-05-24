@@ -1,13 +1,10 @@
-from Controllers.AccountController import AccountController
-from Auth.Auth import Auth
-
 
 class Login:
     @staticmethod
-    def login(username, password):
-        return AccountController().signIn(username, password)
+    def login(username, password, client):
+        return client.accountController.signIn(username, password)
 
     @staticmethod
-    def run(command):
+    def run(command, client):
         var = command.split(' ')
-        Login.login(var[1], var[2])
+        return Login.login(var[1], var[2], client)

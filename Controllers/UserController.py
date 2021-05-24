@@ -1,12 +1,11 @@
 from Services.UserService import UserService
-from Auth.Decorators import Authorization
 from Server.Response.Status import *
-from Auth.Auth import Auth
 
 
 class UserController():
-
-    userService = UserService()
+    def __init__(self, client):
+        self.client = client
+        self.userService = UserService(client)
 
     def saveUser(self, username, password):
 
@@ -17,7 +16,6 @@ class UserController():
 
         return Ok(f"Created user {username} successfully!")
 
-    @Authorization
     def findByName(self, username):
         user = self.userService.findByName(username)
 
@@ -26,7 +24,6 @@ class UserController():
 
         return Ok(user)
 
-    @Authorization
     def findAll(self):
 
         users = self.userService.findAll()
@@ -36,7 +33,6 @@ class UserController():
 
         return Ok(users)
 
-    @Authorization
     def findById(self, id):
 
         user = self.userService.findById(id)
@@ -46,10 +42,10 @@ class UserController():
 
         return Ok(user)
 
-    @Authorization
     def findUserRooms(self):
 
-        rooms = self.userService.findUserRooms(Auth.logged_user().id)
+        userId = self.client.accountData.id
+        rooms = self.userService.findUserRooms(userId)
 
         if not len(rooms):
             return BadRequest(f"No rooms")

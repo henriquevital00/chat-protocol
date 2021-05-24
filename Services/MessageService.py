@@ -2,30 +2,22 @@ from Repositories.MessageRepository import MessageRepository
 
 
 class MessageService():
-    messageRepository = MessageRepository()
+    def __init__(self, client):
+        self.client = client
+        self.messageRepository = MessageRepository()
 
-    def saveMessage(self, from_user_id, content, room_id=None, to_user_id=None, file=None, file_name=None):
+    def saveMessage(self, content):
 
-        
         try:
-            message = {"from_user_id": from_user_id, "to_user_id": to_user_id, "content": content,
-                       "file": file, "file_name": file_name, "room_id": room_id}
+            message = {
+                "from_user_id": self.client.accountData.id,
+                "content": content,
+                "room_id": self.client.activeRoom
+            }
 
             self.messageRepository.saveMessage(message)
-            
 
             return None
 
         except Exception as ex:
             return str(ex)
-
-    def findPrivateMessages(self, id_user_from, id_user_to):
-
-        messages = list(self.messageRepository.findPrivateMessages())
-
-        messages = list(filter(lambda message : message.from_user.id == id_user_from
-                                                and message.to_user.id == id_user_to ,
-                               messages))
-
-        return messages
-
