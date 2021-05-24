@@ -15,9 +15,6 @@ from Services.UserService import UserService
 
 class Check:
 
-    def __init__(self, client):
-        self.client = client
-
     @staticmethod
     def validateCommand(command, client):
         pattern = '(^send (-m)?\ \".+\"$)|(^send \S+( -m)?\ \".+\"$)|(^list files$)|(^list users$)|(^list rooms$)|(^list -r$)|(^accept \S+$)|(^decline \S+$)|(^left (-r)$)|(^create \S+ \S+$)|(^create -r \S+$)|(^mv \S+$)|(^login \S+ \S+$)|(^logout$)|(^request \S+$)|(exit)'
