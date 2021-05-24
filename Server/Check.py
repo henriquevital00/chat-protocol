@@ -29,6 +29,6 @@ class Check:
         if isValid:
             string = command.split(' ')[0]
             string = string.capitalize()
-            return eval(string).run(command, client)
+            return eval(string)(client).run(command, client)
         else:
             return 'This is not a valid command'
