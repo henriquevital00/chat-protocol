@@ -1,11 +1,12 @@
-from Controllers.AccountController import AccountController
+from Commands.BaseCommand import BaseCommand
 
+class Logout(BaseCommand):
 
-class Logout:
-    @staticmethod
-    def logout(client):
-        return client.accountController.signOut()
+    def __init__(self, client):
+        super().__init__(client)
 
-    @staticmethod
-    def run(command, client):
-        return Logout.logout(client)
+    def logout(self):
+        return self.client.accountController.signOut()
+
+    def run(self, command):
+        return self.logout()

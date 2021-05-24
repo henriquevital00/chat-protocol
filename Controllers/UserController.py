@@ -1,10 +1,11 @@
 from Services.UserService import UserService
 from Server.Response.Status import *
+from Controllers.BaseController import BaseController
 
+class UserController(BaseController):
 
-class UserController():
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.userService = UserService(client)
 
     def saveUser(self, username, password):

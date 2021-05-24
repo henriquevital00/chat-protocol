@@ -1,25 +1,30 @@
-from Controllers.RoomController import RoomController
-from Controllers.UserController import UserController
+from Commands.BaseCommand import BaseCommand
 
+class Mv(BaseCommand):
 
-class Mv:
-    @staticmethod
-    def move(room, client):
+    def __init__(self, client):
+        super().__init__(client)
 
-        rooms = client.userController.findUserRooms()
+    def move(self, room):
+
+        rooms = self.client.userController.findUserRooms()
 
         for r in rooms:
+
             if r.user_room.name == room:
-                client.activeRoom = client.roomController.findByName(
-                    room)[0].id
-                messages = client.roomController.findRoomMessages()
-                messages = list(
-                    map(lambda msg: f'{msg.user.username}: {msg.content}',
-                        messages))
+
+                self.client.activeRoom = self.client.roomController.findByName(room)[0].id
+
+                messages = self.client.roomController.findRoomMessages()
+
+                messages = list(map(lambda message: f'{message.user.username}: {message.content}', messages))
+
                 return '\n'.join(messages)
 
         return ("\033[91m'User not in room!\033[0m")
 
-    @staticmethod
-    def run(command, client):
-        return Mv.move(command.split(' ')[1], client)
+
+    def run(self, command):
+        room_name = command.split()[1]
+
+        return self.move(room_name)

@@ -1,15 +1,16 @@
-from Controllers.RoomController import RoomController
-from Controllers.UserController import UserController
+from Commands.BaseCommand import BaseCommand
 
+class Decline(BaseCommand):
 
-class Decline:
-    @staticmethod
-    def decline(username, client):
-        user_id = client.userController.findByName(username)[0].id
+    def __init__(self, client):
+        super().__init__(client)
 
-        return client.roomController.rejectUser(user_id)
+    def decline(self, username):
+        user_id = self.client.userController.findByName(username)[0].id
 
-    @staticmethod
-    def run(command, client):
-        var = command.split(' ')
-        return Decline.decline(var[1], client)
+        return self.client.roomController.rejectUser(user_id)
+
+    def run(self, command):
+        username = command.split()[1]
+
+        return self.decline(username)

@@ -1,9 +1,14 @@
-class Left:
-    @staticmethod
-    def leftRoom(client):
-        client.activeRoom = None
+from Commands.BaseCommand import BaseCommand
+
+class Left(BaseCommand):
+
+    def __init__(self, client):
+        super().__init__(client)
+
+    def leftRoom(self):
+        self.client.activeRoom = None
+
         return 'Left room'
 
-    @staticmethod
-    def run(command, client):
-        return Left.leftRoom(client)
+    def run(self, command):
+        return self.leftRoom()

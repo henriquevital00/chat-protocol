@@ -1,10 +1,12 @@
 from Services.MessageService import MessageService
 from Server.Response.Status import *
+from Controllers.BaseController import BaseController
 
 
-class MessageController():
+class MessageController(BaseController):
+
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.messageService = MessageService(client)
 
     def saveMessage(self, content):

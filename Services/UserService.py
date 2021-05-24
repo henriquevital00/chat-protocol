@@ -1,10 +1,10 @@
+from Services.BaseService import BaseService
 from Repositories.UserRepository import UserRepository
 
-
-class UserService():
+class UserService(BaseService):
 
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.userRepository = UserRepository()
 
     def findAll(self):

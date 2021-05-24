@@ -1,10 +1,12 @@
 from Services.AccountService import AccountService
 from Server.Response.Status import *
+from Controllers.BaseController import BaseController
 
 
-class AccountController():
+class AccountController(BaseController):
+
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.accountService = AccountService(client)
 
     def signIn(self, username, password):

@@ -1,10 +1,11 @@
 from Services.RoomService import RoomService
 from Server.Response.Status import *
+from Controllers.BaseController import BaseController
 
+class RoomController(BaseController):
 
-class RoomController():
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.roomService = RoomService(client)
 
     def findByName(self, room_name):

@@ -1,9 +1,10 @@
+from Services.BaseService import BaseService
 from Repositories.MessageRepository import MessageRepository
 
+class MessageService(BaseService):
 
-class MessageService():
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.messageRepository = MessageRepository()
 
     def saveMessage(self, content):

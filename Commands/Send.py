@@ -1,15 +1,19 @@
-from Controllers.MessageController import MessageController
-from Controllers.UserController import UserController
+from Commands.BaseCommand import BaseCommand
 
+class Send(BaseCommand):
 
-class Send:
-    @staticmethod
-    def sendGroupMsg(message, client):
-        return client.messageController.saveMessage(message)
+    def __init__(self, client):
+        super().__init__(client)
 
-    @staticmethod
-    def run(command, client):
-        string = command.partition(' -m ')
-        split_command = string[0].split()
-        text = string[2].strip('"')
-        return Send.sendGroupMsg(text, client)
+    def sendMessage(self, message):
+        return self.client.messageController.saveMessage(message)
+
+    def run(self, command):
+
+        command = command.partition(' -m ')
+
+        substr_command = command[0].split()
+
+        message_content = substr_command[2].strip('"')
+
+        return self.sendMessage(message_content)

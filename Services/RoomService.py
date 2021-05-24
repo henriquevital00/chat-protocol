@@ -1,9 +1,10 @@
+from Services.BaseService import BaseService
 from Repositories.RoomRepository import RoomRepository
 
+class RoomService(BaseService):
 
-class RoomService():
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.roomRepository = RoomRepository()
 
     def findByName(self, room_name):
@@ -34,8 +35,7 @@ class RoomService():
 
     def findRoomMessages(self):
 
-        messages = list(
-            self.roomRepository.findRoomMessages(self.client.activeRoom))
+        messages = list(self.roomRepository.findRoomMessages(self.client.activeRoom))
 
         return messages
 

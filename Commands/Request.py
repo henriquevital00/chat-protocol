@@ -1,15 +1,17 @@
-from Controllers.RoomController import RoomController
+from Commands.BaseCommand import BaseCommand
 
+class Request(BaseCommand):
 
-class Request:
-    @staticmethod
-    def request(room, client):
+    def __init__(self, client):
+        super().__init__(client)
 
-        room_id = client.roomController.findByName(room)[0].id
+    def request(self, room):
 
-        return client.roomController.createRoomRequest(room_id)
+        room_id = self.client.roomController.findByName(room)[0].id
 
-    @staticmethod
-    def run(command, client):
-        var = command.split(' ')
-        return Request.request(var[1], client)
+        return self.client.roomController.createRoomRequest(room_id)
+
+    def run(self, command):
+        room_name = command.split()[1]
+
+        return self.request(room_name)

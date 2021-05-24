@@ -1,21 +1,24 @@
-from Controllers.RoomController import RoomController
-from Controllers.UserController import UserController
+from Commands.BaseCommand import BaseCommand
 
+class Create(BaseCommand):
 
-class Create:
-    @staticmethod
-    def createUser(username, password, client):
-        return client.userController.saveUser(username, password)
+    def __init__(self, client):
+        super().__init__(client)
 
-    @staticmethod
-    def createRoom(room, client):
-        return client.roomController.saveRoom(room)
+    def createUser(self, username, password):
+        return self.client.userController.saveUser(username, password)
 
-    @staticmethod
-    def run(command, client):
-        var = command.split(' ')
+    def createRoom(self, room):
+        return self.client.roomController.saveRoom(room)
 
-        if var[1] == '-r':
-            return Create.createRoom(var[2], client)
+    def run(self, command):
+
+        command = command.split()
+
+        if command[1] == '-r':
+            room_name = command[2]
+            return self.createRoom(room_name)
+
         else:
-            return Create.createUser(var[1], var[2], client)
+            username, password = command.split()[1:]
+            return self.createUser(username, password)

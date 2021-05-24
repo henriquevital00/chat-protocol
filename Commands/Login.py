@@ -1,10 +1,17 @@
+from Commands.BaseCommand import BaseCommand
 
-class Login:
-    @staticmethod
-    def login(username, password, client):
-        return client.accountController.signIn(username, password)
+class Login(BaseCommand):
 
-    @staticmethod
-    def run(command, client):
-        var = command.split(' ')
-        return Login.login(var[1], var[2], client)
+    def __init__(self, client):
+        super().__init__(client)
+
+    def login(self, username, password):
+        return self.client.accountController.signIn(username, password)
+
+    def run(self, command):
+
+        del command[0] # delete "login"
+
+        username, password = command.split()
+
+        return Login.login(username, password)

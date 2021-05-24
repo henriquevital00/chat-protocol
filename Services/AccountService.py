@@ -1,9 +1,10 @@
+from Services.BaseService import BaseService
 from Repositories.UserRepository import UserRepository
 
+class AccountService(BaseService):
 
-class AccountService():
     def __init__(self, client):
-        self.client = client
+        super().__init__(client)
         self.userRepository = UserRepository()
 
     def signIn(self, username, password):
