@@ -1,19 +1,26 @@
 class Status():
-
     def __init__(self, status, body):
         self.status = status
         self.body = body
 
-class Ok(Status):
 
+class Ok(Status):
     def __init__(self, body):
         super().__init__("OK!", body)
 
     def __new__(self, body):
         return body
 
-class BadRequest(Status):
 
+class Alert(Status):
+    def __init__(self, message):
+        super().__init__("Alert!", message)
+
+    def __new__(self, message):
+        return Colors.OKBLUE + message + Colors.ENDC
+
+
+class BadRequest(Status):
     def __init__(self, message):
         super().__init__("FAILED!", message)
 

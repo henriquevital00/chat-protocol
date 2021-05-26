@@ -55,7 +55,8 @@ class RoomController(BaseController):
         messages = self.roomService.findRoomMessages()
 
         if not len(messages):
-            return BadRequest("No messages were sent in this room!")
+            return Alert(
+                f"Welcome to the room, {self.client.accountData.username}")
 
         return Ok(messages)
 

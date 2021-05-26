@@ -1,8 +1,8 @@
 from Services.BaseService import BaseService
 from Repositories.UserRepository import UserRepository
 
-class AccountService(BaseService):
 
+class AccountService(BaseService):
     def __init__(self, client):
         super().__init__(client)
         self.userRepository = UserRepository()
@@ -18,7 +18,6 @@ class AccountService(BaseService):
             if password == user.password:
                 self.client.isLoggedIn = True
                 self.client.accountData = user
-                print(self.client.accountData)
 
                 return None
 
