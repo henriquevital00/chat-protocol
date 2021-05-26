@@ -6,6 +6,5 @@ from .Room import Room
 class Message(BaseModel):
     id = IntegerField(primary_key = True)
     from_user_id = ForeignKeyField(User)
-    to_user_id = ForeignKeyField(User, null=True)
     content = TextField(null = True)
     room_id = ForeignKeyField(Room, null=True)
