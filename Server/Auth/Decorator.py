@@ -1,11 +1,11 @@
 from functools import wraps
 
-def Authorizate(action):
 
+def Authorizate(action):
     @wraps(action)
     def wrapper(*args, **kw):
 
-        client = args[0]
+        client = args[0].client
 
         if client.isLoggedIn:
             return action(*args, **kw)
@@ -16,15 +16,15 @@ def Authorizate(action):
 
 
 def AllowAnnonymous(action):
-
     @wraps(action)
     def wrapper(*args, **kw):
 
-        client = args[0]
+        client = args[0].client
 
         if not client.isLoggedIn:
             return action(*args, **kw)
         else:
-            raise Exception("You can't execute this command while you're authenticated")
+            raise Exception(
+                "You can't execute this command while you're authenticated")
 
     return wrapper

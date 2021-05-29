@@ -3,8 +3,8 @@ from Server.Response.Status import *
 from Controllers.BaseController import BaseController
 from Server.Auth.Decorator import Authorizate
 
-class MessageController(BaseController):
 
+class MessageController(BaseController):
     def __init__(self, client):
         super().__init__(client)
         self.messageService = MessageService(client)

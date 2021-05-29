@@ -28,7 +28,11 @@ class Mv(BaseCommand):
                     return '\n'.join(messages)
 
                 return messages
-        return ("\033[91m'User not in room!\033[0m")
+        roomExists = list(self.client.roomController.findByName(room))
+        if not roomExists:
+            return f"The room {room} doesn't exists"
+        else:
+            return ("\033[91m'User not in room!\033[0m")
 
     def run(self, command):
         room_name = command.split()[1]

@@ -3,8 +3,8 @@ from Server.Response.Status import *
 from Controllers.BaseController import BaseController
 from Server.Auth.Decorator import Authorizate
 
-class RoomController(BaseController):
 
+class RoomController(BaseController):
     def __init__(self, client):
         super().__init__(client)
         self.roomService = RoomService(client)
@@ -14,7 +14,8 @@ class RoomController(BaseController):
         room_id = self.roomService.findByName(room_name)
 
         if not len(room_id):
-            return BadRequest('Room was not found')
+            raise Exception(BadRequest('Room was not found'))
+
         return Ok(room_id)
 
     @Authorizate
@@ -40,12 +41,16 @@ class RoomController(BaseController):
     @Authorizate
     def findUsersAtRoom(self, id):
 
-        users = self.roomService.findUsersAtRoom(id)
+        if self.client.activeRoom != None:
+            users = self.roomService.findUsersAtRoom(id)
+            print('Users: ', users)
 
-        if not len(users):
-            return BadRequest("No users joined this room!")
+            if not len(users):
+                return BadRequest("No users joined this room!")
 
-        return Ok(users)
+            return Ok(users)
+        else:
+            return BadRequest('You are not in any room!')
 
     @Authorizate
     def findPendingUsers(self):

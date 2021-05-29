@@ -2,13 +2,14 @@ from socket import *
 import _thread
 from Server.ClientThread import *
 
+
 class Server:
 
     clients = []
 
     def __init__(self):
 
-        HOST, PORT = ('localhost', 8001)
+        HOST, PORT = ('localhost', 8000)
 
         with socket(AF_INET, SOCK_STREAM) as sock:
 
@@ -23,4 +24,5 @@ class Server:
                 newClient = ClientThread(conn, addr)
                 self.clients.append(newClient)
 
-                _thread.start_new_thread(ClientThread.connect,(newClient, self))
+                _thread.start_new_thread(ClientThread.connect,
+                                         (newClient, self))

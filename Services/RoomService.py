@@ -1,8 +1,8 @@
 from Services.BaseService import BaseService
 from Repositories.RoomRepository import RoomRepository
 
-class RoomService(BaseService):
 
+class RoomService(BaseService):
     def __init__(self, client):
         super().__init__(client)
         self.roomRepository = RoomRepository()
@@ -35,7 +35,8 @@ class RoomService(BaseService):
 
     def findRoomMessages(self):
 
-        messages = list(self.roomRepository.findRoomMessages(self.client.activeRoom))
+        messages = list(
+            self.roomRepository.findRoomMessages(self.client.activeRoom))
 
         return messages
 
@@ -44,7 +45,19 @@ class RoomService(BaseService):
             room_id = self.client.activeRoom
 
             if not self.isRoomAdmin():
-                raise Exception("Not allowed!")
+                return "Not allowed!"
+
+            pending = self.client.roomController.findPendingUsers()
+
+            if isinstance(pending, list):
+                isUserPending = len(
+                    list(filter(lambda room: room.user.id == user_id,
+                                pending)))
+
+                if not isUserPending:
+                    return "This user has not requested the selected room!"
+            else:
+                return 'This room has no pending users!'
 
             self.roomRepository.rejectUser(user_id, room_id)
 
@@ -58,7 +71,19 @@ class RoomService(BaseService):
             room_id = self.client.activeRoom
 
             if not self.isRoomAdmin():
-                raise Exception("Not allowed!")
+                return "Not allowed!"
+
+            pending = self.client.roomController.findPendingUsers()
+
+            if isinstance(pending, list):
+                isUserPending = len(
+                    list(filter(lambda room: room.user.id == user_id,
+                                pending)))
+
+                if not isUserPending:
+                    return "This user has not requested the selected room!"
+            else:
+                return 'This room has no pending users!'
 
             self.roomRepository.acceptUser(user_id, room_id)
 
@@ -70,6 +95,23 @@ class RoomService(BaseService):
     def createRequestToRoom(self, id):
 
         try:
+
+            pendencies = list(self.roomRepository.findPendingUsers(id))
+
+            for user in pendencies:
+                if user.user_id.id == self.client.accountData.id:
+                    raise Exception(
+                        'You have already sent a request to this room')
+
+            room = self.client.userController.findUserRooms()
+
+            if isinstance(room, list):
+                alreadyInRoom = len(
+                    list(filter(lambda user: user.user_room.id == id, room)))
+
+                if alreadyInRoom:
+                    raise Exception('You are already a member of this room')
+
             user_id = self.client.accountData.id
 
             self.roomRepository.createRequestToRoom({
@@ -94,6 +136,12 @@ class RoomService(BaseService):
     def saveRoom(self, room_name):
 
         try:
+            roomAlreadyExists = len(
+                list(self.roomRepository.findByName(room_name)))
+
+            if roomAlreadyExists:
+                return 'Room with the choosen name already exists!'
+
             user_id = self.client.accountData.id
 
             room = {"name": room_name, "admin_id": user_id}

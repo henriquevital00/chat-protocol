@@ -3,13 +3,14 @@ from Controllers.AccountController import AccountController
 from Controllers.UserController import UserController
 from Controllers.MessageController import MessageController
 
-class Session():
 
+class Session():
     def __init__(self):
 
         self.accountData = None
         self.isLoggedIn = False
         self.activeRoom = None
+        self.userRooms = None
 
         # Session controllers
         self.roomController = RoomController(self)

@@ -7,18 +7,12 @@ class List(BaseCommand):
 
     def listUsers(self):
 
-        if self.client.activeRoom != None:
+        users_names = self.client.roomController.findUsersAtRoom(
+            self.client.activeRoom)
 
-            users_names = self.client.roomController.findUsersAtRoom(
-                self.client.activeRoom)
+        users_names = list(map(lambda room: room.user.username, users_names))
 
-            users_names = list(
-                map(lambda room: room.user.username, users_names))
-
-            return '\n'.join(users_names)
-
-        else:
-            return 'No users at currently room'
+        return '\n'.join(users_names)
 
     def listRooms(self):
 
@@ -52,7 +46,7 @@ class List(BaseCommand):
     def run(self, command):
         command = command.split()
 
-        del command[0]  # delete "send"
+        del command[0]  # delete "list"
 
         if command[0] == 'users':
             return self.listUsers()

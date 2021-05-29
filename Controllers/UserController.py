@@ -3,8 +3,8 @@ from Server.Response.Status import *
 from Controllers.BaseController import BaseController
 from Server.Auth.Decorator import AllowAnnonymous, Authorizate
 
-class UserController(BaseController):
 
+class UserController(BaseController):
     def __init__(self, client):
         super().__init__(client)
         self.userService = UserService(client)
@@ -24,7 +24,7 @@ class UserController(BaseController):
         user = self.userService.findByName(username)
 
         if not len(user):
-            return BadRequest('User was not found')
+            raise Exception(BadRequest('User was not found'))
 
         return Ok(user)
 
@@ -58,3 +58,11 @@ class UserController(BaseController):
             return BadRequest(f"No rooms")
 
         return Ok(rooms)
+
+    @Authorizate
+    def leftRoom(self):
+        if self.client.activeRoom != None:
+            self.client.activeRoom = None
+            return Ok('Left room')
+
+        return BadRequest('You are in menu')
