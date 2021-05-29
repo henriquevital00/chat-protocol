@@ -10,7 +10,6 @@ class Session():
         self.accountData = None
         self.isLoggedIn = False
         self.activeRoom = None
-        self.userRooms = None
 
         # Session controllers
         self.roomController = RoomController(self)
