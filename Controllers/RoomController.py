@@ -1,13 +1,15 @@
 from Services.RoomService import RoomService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
-
+from Server.Auth.Decorator import Authorizate
 
 class RoomController(BaseController):
+
     def __init__(self, client):
         super().__init__(client)
         self.roomService = RoomService(client)
 
+    @Authorizate
     def findByName(self, room_name):
         room_id = self.roomService.findByName(room_name)
 
@@ -15,6 +17,7 @@ class RoomController(BaseController):
             return BadRequest('Room was not found')
         return Ok(room_id)
 
+    @Authorizate
     def findAll(self):
 
         rooms = self.roomService.findAll()
@@ -24,6 +27,7 @@ class RoomController(BaseController):
 
         return Ok(rooms)
 
+    @Authorizate
     def saveRoom(self, room_name):
 
         responseBody = self.roomService.saveRoom(room_name)
@@ -33,6 +37,7 @@ class RoomController(BaseController):
 
         return Ok(f"Created room {room_name} successfully!")
 
+    @Authorizate
     def findUsersAtRoom(self, id):
 
         users = self.roomService.findUsersAtRoom(id)
@@ -42,6 +47,7 @@ class RoomController(BaseController):
 
         return Ok(users)
 
+    @Authorizate
     def findPendingUsers(self):
         pusers = self.roomService.findPendingUsers()
 
@@ -50,6 +56,7 @@ class RoomController(BaseController):
 
         return Ok(pusers)
 
+    @Authorizate
     def findRoomMessages(self):
 
         messages = self.roomService.findRoomMessages()
@@ -60,6 +67,7 @@ class RoomController(BaseController):
 
         return Ok(messages)
 
+    @Authorizate
     def rejectUser(self, user_id):
 
         responseBody = self.roomService.rejectUser(user_id)
@@ -69,6 +77,7 @@ class RoomController(BaseController):
 
         return Ok("User rejected!")
 
+    @Authorizate
     def acceptUser(self, user_id):
         responseBody = self.roomService.acceptUser(user_id)
 
@@ -77,6 +86,7 @@ class RoomController(BaseController):
 
         return Ok("User accepted!")
 
+    @Authorizate
     def createRoomRequest(self, id):
         responseBody = self.roomService.createRequestToRoom(id)
 
@@ -85,6 +95,7 @@ class RoomController(BaseController):
 
         return Ok("User admin will check your request!")
 
+    @Authorizate
     def insertUserInRoom(self, room_id, user_id):
 
         responseBody = self.roomService.insertUserInRoom(room_id, user_id)

@@ -1,7 +1,7 @@
 from Services.AccountService import AccountService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
-
+from Server.Auth.Decorator import AllowAnnonymous, Authorizate
 
 class AccountController(BaseController):
 
@@ -9,6 +9,7 @@ class AccountController(BaseController):
         super().__init__(client)
         self.accountService = AccountService(client)
 
+    @AllowAnnonymous
     def signIn(self, username, password):
         responseBody = self.accountService.signIn(username, password)
 
@@ -17,6 +18,7 @@ class AccountController(BaseController):
 
         return Ok("Logged succesfully")
 
+    @Authorizate
     def signOut(self):
 
         responseBody = self.accountService.signOut()

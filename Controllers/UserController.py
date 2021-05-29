@@ -1,6 +1,7 @@
 from Services.UserService import UserService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
+from Server.Auth.Decorator import AllowAnnonymous, Authorizate
 
 class UserController(BaseController):
 
@@ -8,6 +9,7 @@ class UserController(BaseController):
         super().__init__(client)
         self.userService = UserService(client)
 
+    @AllowAnnonymous
     def saveUser(self, username, password):
 
         responseBody = self.userService.saveUser(username, password)
@@ -17,6 +19,7 @@ class UserController(BaseController):
 
         return Ok(f"Created user {username} successfully!")
 
+    @Authorizate
     def findByName(self, username):
         user = self.userService.findByName(username)
 
@@ -25,6 +28,7 @@ class UserController(BaseController):
 
         return Ok(user)
 
+    @Authorizate
     def findAll(self):
 
         users = self.userService.findAll()
@@ -34,6 +38,7 @@ class UserController(BaseController):
 
         return Ok(users)
 
+    @Authorizate
     def findById(self, id):
 
         user = self.userService.findById(id)
@@ -43,6 +48,7 @@ class UserController(BaseController):
 
         return Ok(user)
 
+    @Authorizate
     def findUserRooms(self):
 
         userId = self.client.accountData.id

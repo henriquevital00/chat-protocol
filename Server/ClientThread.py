@@ -1,5 +1,5 @@
 from Server.Check import Check
-from Server.Session import Session
+from Server.Auth.Session import Session
 
 
 class ClientThread(Session):

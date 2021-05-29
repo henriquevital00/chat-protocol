@@ -1,7 +1,7 @@
 from Services.MessageService import MessageService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
-
+from Server.Auth.Decorator import Authorizate
 
 class MessageController(BaseController):
 
@@ -9,6 +9,7 @@ class MessageController(BaseController):
         super().__init__(client)
         self.messageService = MessageService(client)
 
+    @Authorizate
     def saveMessage(self, content):
         responseBody = self.messageService.saveMessage(content)
 
