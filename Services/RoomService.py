@@ -38,14 +38,26 @@ class RoomService(BaseService):
         return users
 
     def findPendingUsers(self):
+        print('ta na funcao')
 
         room_id = self.client.activeRoom
+        print('A fdp fo RoomId: ', room_id)
 
+        if room_id == None:
+            print('If 1')
+            return 'You are not in any room'
+
+        print('Admin: ', self.isRoomAdmin())
         if not self.isRoomAdmin():
-            return []
+            print('dentro do if admin')
+            raise Exception(
+                'You are not allowed to run this command in this room')
 
+        print('Fora if admin')
         pusers = list(self.roomRepository.findPendingUsers(room_id))
 
+        print('quase return if')
+        print('Pusers service: ', pusers)
         return pusers
 
     def findRoomMessages(self):
@@ -55,12 +67,12 @@ class RoomService(BaseService):
 
         return messages
 
-    def rejectUser(self, user_id):
+    def acceptUser(self, user_id, accept=True):
         try:
             room_id = self.client.activeRoom
 
             if not self.isRoomAdmin():
-                return "Not allowed!"
+                return 'You are not allowed to run this command in this room'
 
             pending = self.client.roomController.findPendingUsers()
 
@@ -74,33 +86,10 @@ class RoomService(BaseService):
             else:
                 return 'This room has no pending users!'
 
-            self.roomRepository.rejectUser(user_id, room_id)
-
-            return None
-
-        except Exception as ex:
-            return str(ex)
-
-    def acceptUser(self, user_id):
-        try:
-            room_id = self.client.activeRoom
-
-            if not self.isRoomAdmin():
-                return "Not allowed!"
-
-            pending = self.client.roomController.findPendingUsers()
-
-            if isinstance(pending, list):
-                isUserPending = len(
-                    list(filter(lambda room: room.user.id == user_id,
-                                pending)))
-
-                if not isUserPending:
-                    return "This user has not requested the selected room!"
+            if accept:
+                self.roomRepository.acceptUser(user_id, room_id)
             else:
-                return 'This room has no pending users!'
-
-            self.roomRepository.acceptUser(user_id, room_id)
+                self.roomRepository.rejectUser(user_id, room_id)
 
             return None
 
@@ -198,17 +187,6 @@ class RoomService(BaseService):
         users = list(self.roomRepository.findUsersAtRoom(id))
 
         return users
-
-    def findPendingUsers(self):
-
-        room_id = self.client.activeRoom
-
-        if not self.isRoomAdmin():
-            return []
-
-        pusers = list(self.roomRepository.findPendingUsers(room_id))
-
-        return pusers
 
     def findRoomMessages(self):
 

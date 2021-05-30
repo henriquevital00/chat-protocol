@@ -2,6 +2,7 @@ from Services.RoomService import RoomService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
 from Server.Auth.Decorator import Authorizate
+from pdb import set_trace
 
 
 class RoomController(BaseController):
@@ -40,7 +41,6 @@ class RoomController(BaseController):
 
     @Authorizate
     def findUsersAtRoom(self, id):
-
         if self.client.activeRoom != None:
             users = self.roomService.findUsersAtRoom(id)
             print('Users: ', users)
@@ -57,7 +57,9 @@ class RoomController(BaseController):
         pusers = self.roomService.findPendingUsers()
 
         if not len(pusers):
-            return BadRequest("No pending users at room")
+            print('If do controller')
+            print('If controller users: ', pusers)
+            return BadRequest('This room has no pending requests')
 
         return Ok(pusers)
 
