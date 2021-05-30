@@ -1,7 +1,7 @@
 from Services.UserService import UserService
 from Server.Response.Status import *
 from Controllers.BaseController import BaseController
-from Server.Auth.Decorator import AllowAnnonymous, Authorizate
+from Server.Auth.Decorator import AllowAnonymous, Authorizate
 
 
 class UserController(BaseController):
@@ -9,7 +9,7 @@ class UserController(BaseController):
         super().__init__(client)
         self.userService = UserService(client)
 
-    @AllowAnnonymous
+    @AllowAnonymous
     def saveUser(self, username, password):
 
         responseBody = self.userService.saveUser(username, password)

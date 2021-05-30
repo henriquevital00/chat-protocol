@@ -15,7 +15,7 @@ def Authorizate(action):
     return wrapper
 
 
-def AllowAnnonymous(action):
+def AllowAnonymous(action):
     @wraps(action)
     def wrapper(*args, **kw):
 
