@@ -100,8 +100,7 @@ class RoomService(BaseService):
 
             for user in pendencies:
                 if user.user_id.id == self.client.accountData.id:
-                    raise Exception(
-                        'You have already sent a request to this room')
+                    return 'You have already sent a request to this room'
 
             room = self.client.userController.findUserRooms()
 
@@ -110,7 +109,7 @@ class RoomService(BaseService):
                     list(filter(lambda user: user.user_room.id == id, room)))
 
                 if alreadyInRoom:
-                    raise Exception('You are already a member of this room')
+                    return'You are already a member of this room')
 
             user_id = self.client.accountData.id
 
