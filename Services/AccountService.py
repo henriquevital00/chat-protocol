@@ -24,11 +24,7 @@ class AccountService(BaseService):
         return "Incorrect username or password"
 
     def signOut(self):
-
-        if self.client.isLoggedIn:
-            self.client.isLoggedIn = False
-            self.client.accountData = None
-
-            return None
-
-        return "No user logged in"
+        self.client.isLoggedIn = False
+        self.client.accountData = None
+        
+        return None
