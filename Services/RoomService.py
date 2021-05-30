@@ -11,21 +11,6 @@ class RoomService(BaseService):
         return list(self.roomRepository.findByName(room_name))
 
     def findAll(self):
-        from Services.BaseService import BaseService
-
-
-from Repositories.RoomRepository import RoomRepository
-
-
-class RoomService(BaseService):
-    def __init__(self, client):
-        super().__init__(client)
-        self.roomRepository = RoomRepository()
-
-    def findByName(self, room_name):
-        return list(self.roomRepository.findByName(room_name))
-
-    def findAll(self):
 
         rooms = list(self.roomRepository.findAll())
 
@@ -38,26 +23,17 @@ class RoomService(BaseService):
         return users
 
     def findPendingUsers(self):
-        print('ta na funcao')
 
         room_id = self.client.activeRoom
-        print('A fdp fo RoomId: ', room_id)
 
         if room_id == None:
-            print('If 1')
-            return 'You are not in any room'
+            return "You're not in any room!"
 
-        print('Admin: ', self.isRoomAdmin())
         if not self.isRoomAdmin():
-            print('dentro do if admin')
-            raise Exception(
-                'You are not allowed to run this command in this room')
+            return 'You are not allowed to run this command in this room')
 
-        print('Fora if admin')
         pusers = list(self.roomRepository.findPendingUsers(room_id))
 
-        print('quase return if')
-        print('Pusers service: ', pusers)
         return pusers
 
     def findRoomMessages(self):
@@ -77,9 +53,7 @@ class RoomService(BaseService):
             pending = self.client.roomController.findPendingUsers()
 
             if isinstance(pending, list):
-                isUserPending = len(
-                    list(filter(lambda room: room.user.id == user_id,
-                                pending)))
+                isUserPending = len(list(filter(lambda room: room.user.id == user_id, pending)))
 
                 if not isUserPending:
                     return "This user has not requested the selected room!"
@@ -190,8 +164,7 @@ class RoomService(BaseService):
 
     def findRoomMessages(self):
 
-        messages = list(
-            self.roomRepository.findRoomMessages(self.client.activeRoom))
+        messages = list(self.roomRepository.findRoomMessages(self.client.activeRoom))
 
         return messages
 
@@ -205,10 +178,8 @@ class RoomService(BaseService):
             pending = self.client.roomController.findPendingUsers()
 
             if isinstance(pending, list):
-                isUserPending = len(
-                    list(
-                        filter(lambda room: room.user_id.id == user_id,
-                               pending)))
+                isUserPending = len(list(filter(lambda room: room.user_id.id == user_id, pending)))
+                
                 if not isUserPending:
                     return "This user has not requested the selected room!"
             else:
@@ -237,8 +208,7 @@ class RoomService(BaseService):
             room = self.client.userController.findUserRooms()
 
             if isinstance(room, list):
-                alreadyInRoom = len(
-                    list(filter(lambda user: user.user_room.id == id, room)))
+                alreadyInRoom = len(list(filter(lambda user: user.user_room.id == id, room)))
 
                 if alreadyInRoom:
                     return 'You are already a member of this room'
