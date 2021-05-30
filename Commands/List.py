@@ -10,9 +10,13 @@ class List(BaseCommand):
         users_names = self.client.roomController.findUsersAtRoom(
             self.client.activeRoom)
 
-        users_names = list(map(lambda room: room.user.username, users_names))
+        if len(users_names) and isinstance(users_names, list):
+            users_names = list(
+                map(lambda room: room.user.username, users_names))
 
-        return '\n'.join(users_names)
+            return '\n'.join(users_names)
+
+        return users_names
 
     def listRooms(self):
 
