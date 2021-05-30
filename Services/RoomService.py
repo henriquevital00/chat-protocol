@@ -53,7 +53,10 @@ class RoomService(BaseService):
             pending = self.client.roomController.findPendingUsers()
 
             if isinstance(pending, list):
-                isUserPending = len(list(filter(lambda room: room.user.id == user_id, pending)))
+                isUserPending = len(
+                    list(
+                        filter(lambda room: room.user_id.id == user_id,
+                               pending)))
 
                 if not isUserPending:
                     return "This user has not requested the selected room!"
@@ -83,7 +86,8 @@ class RoomService(BaseService):
             room = self.client.userController.findUserRooms()
 
             if isinstance(room, list):
-                alreadyInRoom = len(list(filter(lambda user: user.user_room.id == id, room)))
+                alreadyInRoom = len(
+                    list(filter(lambda user: user.user_room.id == id, room)))
 
                 if alreadyInRoom:
                     return 'You are already a member of this room'
@@ -112,7 +116,8 @@ class RoomService(BaseService):
     def saveRoom(self, room_name):
 
         try:
-            roomAlreadyExists = len(list(self.roomRepository.findByName(room_name)))
+            roomAlreadyExists = len(
+                list(self.roomRepository.findByName(room_name)))
 
             if roomAlreadyExists:
                 return 'Room with the choosen name already exists!'

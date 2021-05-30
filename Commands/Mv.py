@@ -9,6 +9,9 @@ class Mv(BaseCommand):
 
         rooms = self.client.userController.findUserRooms()
 
+        if not isinstance(rooms, list):
+            return rooms
+
         for r in rooms:
 
             if r.user_room.name == room:

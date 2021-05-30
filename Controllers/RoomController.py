@@ -43,7 +43,6 @@ class RoomController(BaseController):
     def findUsersAtRoom(self, id):
         if self.client.activeRoom != None:
             users = self.roomService.findUsersAtRoom(id)
-            print('Users: ', users)
 
             if not len(users):
                 return BadRequest("No users joined this room!")
@@ -57,8 +56,6 @@ class RoomController(BaseController):
         pusers = self.roomService.findPendingUsers()
 
         if not len(pusers):
-            print('If do controller')
-            print('If controller users: ', pusers)
             return BadRequest('This room has no pending requests')
 
         return Ok(pusers)

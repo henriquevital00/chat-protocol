@@ -30,13 +30,9 @@ class List(BaseCommand):
         return rooms
 
     def listPendingUsers(self):
-        print("FDP CORNA DESGRCADA")
-
         users = self.client.roomController.findPendingUsers()
 
-        print('Users: ', users)
         if len(users) and isinstance(users, list):
-            print('Dentro do if')
             users = list(map(lambda room: room.user.username, users))
             return '\n'.join(users)
 
