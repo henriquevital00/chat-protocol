@@ -25,7 +25,6 @@ class ClientThread(Session):
                         client.conn.send(result.encode())
 
             except Exception as ex:
-                print(ex)
                 ex = str(ex) + '\n\n'
                 client.conn.send(ex.encode())
                 continue

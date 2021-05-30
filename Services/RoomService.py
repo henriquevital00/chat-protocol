@@ -10,7 +10,10 @@ class RoomService(BaseService):
     def findByName(self, room_name):
         return list(self.roomRepository.findByName(room_name))
 
-    def findAll(self):from Services.BaseService import BaseService
+    def findAll(self):
+        from Services.BaseService import BaseService
+
+
 from Repositories.RoomRepository import RoomRepository
 
 
@@ -121,7 +124,7 @@ class RoomService(BaseService):
                     list(filter(lambda user: user.user_room.id == id, room)))
 
                 if alreadyInRoom:
-                    return'You are already a member of this room'
+                    return 'You are already a member of this room'
 
             user_id = self.client.accountData.id
 
@@ -186,7 +189,6 @@ class RoomService(BaseService):
 
             return "Not corresponding data was inserted"
 
-
         rooms = list(self.roomRepository.findAll())
 
         return rooms
@@ -215,7 +217,7 @@ class RoomService(BaseService):
 
         return messages
 
-    def rejectUser(self, user_id):
+    def acceptUser(self, user_id, accept=True):
         try:
             room_id = self.client.activeRoom
 
@@ -226,41 +228,18 @@ class RoomService(BaseService):
 
             if isinstance(pending, list):
                 isUserPending = len(
-                    list(filter(lambda room: room.user.id == user_id,
-                                pending)))
-
+                    list(
+                        filter(lambda room: room.user_id.id == user_id,
+                               pending)))
                 if not isUserPending:
                     return "This user has not requested the selected room!"
             else:
                 return 'This room has no pending users!'
 
-            self.roomRepository.rejectUser(user_id, room_id)
-
-            return None
-
-        except Exception as ex:
-            return str(ex)
-
-    def acceptUser(self, user_id):
-        try:
-            room_id = self.client.activeRoom
-
-            if not self.isRoomAdmin():
-                return "Not allowed!"
-
-            pending = self.client.roomController.findPendingUsers()
-
-            if isinstance(pending, list):
-                isUserPending = len(
-                    list(filter(lambda room: room.user.id == user_id,
-                                pending)))
-
-                if not isUserPending:
-                    return "This user has not requested the selected room!"
+            if accept:
+                self.roomRepository.acceptUser(user_id, room_id)
             else:
-                return 'This room has no pending users!'
-
-            self.roomRepository.acceptUser(user_id, room_id)
+                self.roomRepository.rejectUser(user_id, room_id)
 
             return None
 
@@ -284,7 +263,7 @@ class RoomService(BaseService):
                     list(filter(lambda user: user.user_room.id == id, room)))
 
                 if alreadyInRoom:
-                    return'You are already a member of this room')
+                    return 'You are already a member of this room'
 
             user_id = self.client.accountData.id
 

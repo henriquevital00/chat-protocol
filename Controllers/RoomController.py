@@ -73,23 +73,16 @@ class RoomController(BaseController):
         return Ok(messages)
 
     @Authorizate
-    def rejectUser(self, user_id):
-
-        responseBody = self.roomService.rejectUser(user_id)
-
-        if responseBody is not None:
-            return BadRequest(responseBody)
-
-        return Ok("User rejected!")
-
-    @Authorizate
-    def acceptUser(self, user_id):
-        responseBody = self.roomService.acceptUser(user_id)
+    def acceptUser(self, user_id, accept=True):
+        responseBody = self.roomService.acceptUser(user_id, accept)
 
         if responseBody is not None:
             return BadRequest(responseBody)
 
-        return Ok("User accepted!")
+        if accept:
+            return Ok("User accepted!")
+        else:
+            return Ok('User rejected!')
 
     @Authorizate
     def createRoomRequest(self, id):
